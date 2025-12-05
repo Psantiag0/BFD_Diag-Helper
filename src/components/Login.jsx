@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { salvarLog } from "../modals/salvaLogs";
-
+// 💡 IMPORTAÇÃO DO MÓDULO DE DADOS
+import { carregarUsuarios } from "../data/dadosUsuarios";
+// import { salvarLog } from "../modals/salvaLogs"; // Manter se for usar
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -13,27 +14,7 @@ export default function Login() {
   const [mensagem, setMensagem] = useState("");
   const navigate = useNavigate();
 
-  // Usuários simulados sem backend
-  const usuariosFake = [
-    {
-      nome: "Administrador Fulano",
-      email: "admin@teste.com",
-      senha: "123",
-      tipoUsuario: "administrador",
-    },
-    {
-      nome: "Dr. João",
-      email: "medico@teste.com",
-      senha: "123",
-      tipoUsuario: "medico",
-    },
-    {
-      nome: "Maria de Solza",
-      email: "recepcao@teste.com",
-      senha: "123",
-      tipoUsuario: "recepcionista",
-    },
-  ];
+  // A lista de usuários fake foi movida para 'dadosUsuarios.js'
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -43,7 +24,10 @@ export default function Login() {
     e.preventDefault();
     setMensagem("");
 
-    const usuario = usuariosFake.find(
+    // 1. 🔍 CARREGA TODOS OS USUÁRIOS DO 'BANCO DE DADOS FAKE'
+    const todosUsuarios = carregarUsuarios();
+
+    const usuario = todosUsuarios.find(
       (u) =>
         u.email === formData.email &&
         u.senha === formData.senha &&
@@ -55,10 +39,12 @@ export default function Login() {
       return;
     }
 
+    // 2. ✅ SALVA INFORMAÇÕES DO USUÁRIO NO localStorage
     localStorage.setItem(
       "usuario",
       JSON.stringify({
         nome: usuario.nome,
+        email: usuario.email, 
         tipoUsuario: usuario.tipoUsuario,
       })
     );
@@ -135,11 +121,6 @@ export default function Login() {
           </p>
         </div>
       </div>
-
-
-
-  
-
     </div>
   );
 }
