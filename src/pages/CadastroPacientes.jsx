@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import NovoExame from "../modals/NovoExame";
+import ModalConfirmarExclusao from "../modals/ModalConfirmarExclusao";
 
 function CadastroPacientes() {
   const [pacientes, setPacientes] = useState([]);
   const [editId, setEditId] = useState(null);
   const [pesquisa, setPesquisa] = useState("");
+  const [openModal, setOpenModal] = useState(false); //confirmar exclusão do paciente
+  const [idSelecionado, setIdSelecionado] = useState(null);
+
 
   const [formPacientes, setFormPacientes] = useState({
     nome: "",
@@ -96,6 +100,13 @@ function CadastroPacientes() {
       console.error("Erro ao excluir paciente:", error);
     }
   };
+
+  // confirmar exclusão do paciente
+  const confirmarExclusao = async () => {
+    await excluirPaciente(idSelecionado);
+    setOpenModal(false);
+    setIdSelecionado(null);
+  }
 
   // Cadastrar paciente com exames
   const cadastrarPaciente = async (e) => {
@@ -354,7 +365,11 @@ function CadastroPacientes() {
                   </button>
 
                   <button
-                    onClick={() => excluirPaciente(p.id)}
+                    onClick={() => {
+                      setIdSelecionado(p.id); //guarda o id do paciente
+                      setOpenModal(true);
+                    }
+                    }
                     className="text-red-600 font-semibold hover:underline"
                   >
                     Excluir
@@ -391,6 +406,12 @@ function CadastroPacientes() {
         </div>
       </main>
 
+      {/* MODAL DE CONFIRMAÇÃO DE EXCLUSÃO */}
+          <ModalConfirmarExclusao
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+            onConfirm={confirmarExclusao}
+          />
 
       {/* MODAL */}
       {modalExameAberto && (
