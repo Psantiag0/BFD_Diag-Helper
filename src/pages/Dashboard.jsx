@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import { MdSaveAlt } from "react-icons/md";
+import PageWrapper from "../components/PageWrapper";
 
-export default function Dashboard({ expanded }) {
-  const navigate = useNavigate();
-
+export default function Dashboard() {
   const [usuarios, setUsuarios] = useState([]);
 
   const [form, setForm] = useState({
@@ -63,7 +60,7 @@ export default function Dashboard({ expanded }) {
       const usuarioSalvo = await res.json();
       setUsuarios((prev) => [...prev, usuarioSalvo]);
 
-      // Resetar formulário
+      // Resetar form
       setForm({ nome: "", cpf: "", cargo: "", status: "Ativo" });
       setSenha("");
       setConfirmaSenha("");
@@ -91,145 +88,137 @@ export default function Dashboard({ expanded }) {
   ).length;
 
   return (
-    <div className="min-h-screen bg-gray-50 flex overflow-x-hidden">
-      <Navbar expanded={expanded} />
+    <PageWrapper title="Dashboard">
+      {/* CARDS */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+        <Card title="Total de Usuários" value={total} color="blue" />
+        <Card title="Ativos" value={ativos} color="green" />
+        <Card title="Novos Hoje" value={novosHoje} color="yellow" />
+      </div>
 
-      <main
-        className={`flex-1 p-6 transition-all duration-300 ${
-          expanded ? "md:ml-64" : "md:ml-20"
-        }`}
-      >
-        {/* Cabeçalho */}
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
-        </div>
+      {/* FORM CADASTRO */}
+      <section className="bg-white p-4 shadow rounded mb-6">
+        <h2 className="text-lg font-bold mb-4">Novo Usuário</h2>
 
-        {/* CARDS */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-          <Card title="Total de Usuários" value={total} color="blue" />
-          <Card title="Ativos" value={ativos} color="green" />
-          <Card title="Inativos" value={novosHoje} color="yellow" />
-        </div>
+        <form
+          onSubmit={cadastrar}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+        >
+          <Input
+            label="Nome"
+            value={form.nome}
+            onChange={(e) => setForm({ ...form, nome: e.target.value })}
+          />
 
-        {/* FORMULÁRIO DE CADASTRO */}
-        <section className="bg-white p-4 shadow rounded mb-6">
-          <h2 className="text-lg font-bold mb-4">Novo Usuário</h2>
+          <Input
+            label="CPF"
+            value={form.cpf}
+            onChange={(e) => setForm({ ...form, cpf: e.target.value })}
+          />
 
-          <form
-            onSubmit={cadastrar}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+          {/* Cargo */}
+          <Input
+            label="Cargo"
+            value={form.cargo}
+            onChange={(e) => setForm({ ...form, cargo: e.target.value })}
+          />
+
+          {/* Status */}
+          <select
+            className="border p-2 rounded w-full"
+            value={form.status}
+            onChange={(e) => setForm({ ...form, status: e.target.value })}
           >
-            <Input
-              label="Nome"
-              value={form.nome}
-              onChange={(e) => setForm({ ...form, nome: e.target.value })}
-            />
+            <option value="Ativo">Ativo</option>
+            <option value="Inativo">Inativo</option>
+          </select>
 
-            <Input
-              label="CPF"
-              value={form.cpf}
-              onChange={(e) => setForm({ ...form, cpf: e.target.value })}
-            />
+          {/* Senha */}
+          <Input
+            label="Senha"
+            type="password"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+          />
 
-            
+          <Input
+            label="Confirme a Senha"
+            type="password"
+            value={confirmaSenha}
+            onChange={(e) => setConfirmaSenha(e.target.value)}
+          />
 
-            {/* STATUS */}
-            <select
-              className="border p-2 rounded w-full"
-              value={form.status}
-              onChange={(e) => setForm({ ...form, status: e.target.value })}
-            >
-              <option value="Ativo">Ativo</option>
-              <option value="Inativo">Inativo</option>
-            </select>
+          {/* Tipo de usuário */}
+          <select
+            className="border p-2 rounded w-full"
+            value={tipoUsuario}
+            onChange={(e) => setTipoUsuario(e.target.value)}
+          >
+            <option value="medico">Médico Laudista</option>
+            <option value="medicoAssistente">Médico Assistente</option>
+            <option value="recepcionista">Recepcionista</option>
+            <option value="administrador">Administrador</option>
+          </select>
 
-            {/* Senha */}
-            <Input
-              label="Senha"
-              type="password"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-            />
+          {erroCadastro && (
+            <p className="text-red-500 text-sm mt-1 col-span-2">
+              {erroCadastro}
+            </p>
+          )}
 
-            <Input
-              label="Confirme a Senha"
-              type="password"
-              value={confirmaSenha}
-              onChange={(e) => setConfirmaSenha(e.target.value)}
-            />
+          {/* Botão salvar */}
+          <button
+            type="submit"
+            className="bg-gray-500 text-black rounded flex items-center justify-center px-3 py-2 mt-2 w-32 hover:bg-gray-600"
+          >
+            <MdSaveAlt size={16} color="black" className="mr-2" />
+            Salvar
+          </button>
+        </form>
+      </section>
 
-            {/* Tipo de usuário */}
-            <select
-              className="border p-2 rounded w-full"
-              value={tipoUsuario}
-              onChange={(e) => setTipoUsuario(e.target.value)}
-            >
-              <option value="medico">Médico Laudista</option>
-              <option value="medicoAssistente">Médico Assistente</option>
-              <option value="recepcionista">Recepcionista</option>
-              <option value="administrador">Administrador</option>
-            </select>
+      {/* TABELA */}
+      <section className="bg-white p-4 shadow rounded">
+        <h2 className="text-lg font-bold mb-4">Usuários Cadastrados</h2>
 
-            {erroCadastro && (
-              <p className="text-red-500 text-sm mt-1 col-span-2">
-                {erroCadastro}
-              </p>
-            )}
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-sm">
+            <thead>
+              <tr className="bg-gray-200">
+                <Th>Nome</Th>
+                <Th>CPF</Th>
+                <Th>Cargo</Th>
+                <Th>Status</Th>
+                <Th>Tipo</Th>
+                <Th>Criado em</Th>
+                <Th>Ações</Th>
+              </tr>
+            </thead>
 
-            {/* Botão salvar */}
-            <button
-              type="submit"
-              className="bg-gray-500 text-black rounded flex items-center justify-center px-3 py-2 mt-2 w-32 hover:bg-gray-600"
-            >
-              <MdSaveAlt size={16} color="black" className="mr-2" />
-              Salvar
-            </button>
-          </form>
-        </section>
-
-        {/* TABELA */}
-        <section className="bg-white p-4 shadow rounded">
-          <h2 className="text-lg font-bold mb-4">Usuários Cadastrados</h2>
-
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-sm">
-              <thead>
-                <tr className="bg-gray-200">
-                  <Th>Nome</Th>
-                  <Th>CPF</Th>
-                  <Th>Cargo</Th>
-                  <Th>Status</Th>
-                  <Th>Tipo</Th>
-                  <Th>Criado em</Th>
-                  <Th>Ações</Th>
+            <tbody>
+              {usuarios.map((u) => (
+                <tr key={u.id} className="border-b">
+                  <Td>{u.nome}</Td>
+                  <Td>{u.cpf}</Td>
+                  <Td>{u.cargo}</Td>
+                  <Td>{u.status}</Td>
+                  <Td>{u.tipoUsuario}</Td>
+                  <Td>{u.criadoEm}</Td>
+                  <Td>
+                    <button
+                      onClick={() => remover(u.id)}
+                      className="text-red-600 hover:underline"
+                    >
+                      Excluir
+                    </button>
+                  </Td>
                 </tr>
-              </thead>
-
-              <tbody>
-                {usuarios.map((u) => (
-                  <tr key={u.id} className="border-b">
-                    <Td>{u.nome}</Td>
-                    <Td>{u.cpf}</Td>
-                    <Td>{u.cargo}</Td>
-                    <Td>{u.status}</Td>
-                    <Td>{u.tipoUsuario}</Td>
-                    <Td>{u.criadoEm}</Td>
-                    <Td>
-                      <button
-                        onClick={() => remover(u.id)}
-                        className="text-red-600 hover:underline"
-                      >
-                        Excluir
-                      </button>
-                    </Td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </main>
-    </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </PageWrapper>
   );
 }
 
