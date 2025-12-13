@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Layout from "../components/Navbar";
+import PageWrapper from "../components/PageWrapper";
 
 export default function LogsAuditoria() {
   const [logs, setLogs] = useState([]);
@@ -28,11 +28,9 @@ export default function LogsAuditoria() {
   });
 
   return (
-    <Layout>
+   <PageWrapper title="Logs de auditoria">
       <div className="max-w-6xl mx-auto px-6 py-10">
-        <h1 className="text-3xl font-bold mb-8 text-gray-800">
-          Logs de Auditoria
-        </h1>
+      
 
         {/* filtros */}
         <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -104,6 +102,6 @@ export default function LogsAuditoria() {
           </table>
         </div>
       </div>
-    </Layout>
+    </PageWrapper>
   );
 }

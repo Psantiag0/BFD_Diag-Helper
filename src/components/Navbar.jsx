@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import {
   FcHome,
@@ -20,19 +19,20 @@ function Navbar({ expanded, setExpanded }) {
       onMouseEnter={() => setExpanded(true)}
       onMouseLeave={() => setExpanded(false)}
       className={`
-        h-screen bg-white shadow-md z-40 fixed top-0 left-0
+        h-screen shadow-md z-40 fixed top-0 left-0
+        
         transition-all duration-300 flex flex-col
         ${expanded ? "w-64" : "w-22"}
       `}
     >
-      <div className="flex flex-col h-full px-6 p-6">
+      <div className="flex flex-col h-full px-6 p-6 bg-background-100">
         {/* Botão expandir */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             setExpanded(!expanded);
           }}
-          className="mb-6 ml-2 cursor-pointer w-6 transition-transform duration-200 hover:scale-125"
+          className="mb-6 ml-2 cursor-pointer w-6 transition-transform duration-200 hover:scale-125 "
         >
           <FcMenu  size={24} />
         </button>
@@ -58,7 +58,7 @@ function Navbar({ expanded, setExpanded }) {
               <li key={i}>
                 <Link
                   to={item.to}
-                  className=" bg-gradient-to-r from-slate-100 to-slate-200 hover:from-primary-200 hover:to-primary-400
+                  className="bg-gradient-to-r from-slate-100 to-slate-200 hover:from-primary-200 hover:to-primary-400
                     p-2 shadow-lg flex flex-row gap-3 rounded-md cursor-pointer items-center
                     transition-transform duration-200 hover:scale-115
                   "
@@ -126,7 +126,7 @@ export default function Layout({ children }) {
 
       <main
         className={`
-          flex-1 p-6 transition-all duration-300
+          flex-1 p-2 transition-all duration-300
           ${expanded ? "ml-64" : "ml-20"}
         `}
       >
