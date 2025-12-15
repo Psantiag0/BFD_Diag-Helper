@@ -1,16 +1,38 @@
-# React + Vite
+# Diag Helper
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Diag Helper é uma aplicação desenvolvida em React com Vite, projetada para auxiliar na gestão de diagnósticos médicos. A aplicação oferece funcionalidades como cadastro de pacientes, geração de laudos, visualização de históricos e muito mais, com uma interface moderna e responsiva.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Autenticação**: Login e logout seguros para usuários.
+- **Cadastro de Pacientes**: Gerencie informações de pacientes de forma prática.
+- **Geração de Laudos**: Crie e visualize laudos médicos.
+- **Histórico de Laudos**: Acompanhe os laudos gerados ao longo do tempo.
+- **Logs de Auditoria**: Monitore atividades realizadas na aplicação.
+- **Configurações**: Personalize a aplicação de acordo com suas necessidades.
+- **Suporte**: Acesse informações e ajuda diretamente na aplicação.
 
-## React Compiler
+## Tecnologias Utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend**: React, Vite
+- **Estilização**: TailwindCSS
+- **Gerenciamento de Estado**: Context API (ou outra solução, se aplicável)
+- **Build Tool**: Vite
+- **Outras Dependências**: ESLint, PostCSS
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Como Rodar o Projeto
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/heliobentzen/diag-helper.git
+
+2. Acesse o diretório do projeto:
+cd diag-helper
+
+3. Instale as dependências:
+npm install
+
+4. Inicie o servidor de desenvolvimento:
+npm run dev
+

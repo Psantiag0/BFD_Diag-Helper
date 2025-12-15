@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { carregarUsuarios } from "../data/dadosUsuarios";
 // import { salvarLog } from "../modals/salvaLogs"; // Manter se for usar
 
+//add logo
+import logo from "../assets/3.svg";
+
 export default function Login() {
   const [formData, setFormData] = useState({
     tipoUsuario: "",
@@ -118,14 +121,22 @@ export default function Login() {
 
           </form>
         </div>
-
-        {/* ILUSTRAÇÃO */}
+        {/* logo */}
         <div className="hidden md:flex w-1/2 bg-primary-400 items-center justify-center text-slate-900 flex-col p-8">
+
+        {/* /LOGO ACIMA DO TEXTO/ */}
+          <img
+            src={logo}
+            alt="Logo"
+            className="w-50 mb-5"
+          />
+
           <h2 className="text-3xl font-bold mb-4">Bem-vindo!</h2>
-          <p className="text-center ">
+          <p className="text-center">
             Acesse o sistema com suas credenciais.
           </p>
         </div>
+
       </div>
     </div>
   );

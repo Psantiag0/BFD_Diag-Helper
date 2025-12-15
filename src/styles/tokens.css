@@ -1,15 +1,40 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary-50:  #ecffe8;
-  --color-primary-100: #d7ffd0;
-  --color-primary-200: #afffa1;
-  --color-primary-300: #87ff72;
-  --color-primary-400: #5aff7a; /* cor principal; usar no className="bg-primary-400" que altera a cor de fundo */
-  --color-primary-500: #36e75a;
-  --color-primary-600: #27b749;
-  --color-primary-700: #1a8637;
-  --color-primary-800: #0d5624;
-  --color-primary-900: #042f14;
-  --text-stroke-strong: 2px black;
+  /* === C O R E  (verde neon baseado em #5AFF7A) === */
+  --color-primary-50:  #EBFFEF;
+  --color-primary-100: #CFFFD9;
+  --color-primary-200: #A6FFBA;
+  --color-primary-300: #7EFF99;
+  --color-primary-400: #5AFF7A; /* cor base pedida */
+  --color-primary-500: #2FE85A;
+  --color-primary-600: #22C449;
+  --color-primary-700: #199738;
+  --color-primary-800: #136D29;
+  --color-primary-900: #0C461C;
+
+  /* === B A C K G R O U N D === */
+  --color-background-100: #F6FFF9; /* fundo geral suave */
+  --color-background-200: #FFFFFF; /* cards / containers */
+
+  /* === S I D E B A R === */
+  --color-sidebar-100: #136D29; /* verde escuro profissional */
+  --color-sidebar-200: #199738; /* hover */
+  --color-sidebar-300: #0C461C; /* borda / divisores */
+
+  /* === T E X T O === */
+  --color-text-primary: #0F2618;
+  --color-text-secondary: #3B4D41;
+
+  /* === N E U T R A L === */
+  --color-neutral-50:  #F8FAF9;
+  --color-neutral-100: #ECF0EF;
+  --color-neutral-200: #D6DDDA;
+  --color-neutral-300: #B8C4C0;
+  --color-neutral-400: #97A8A3;
+  --color-neutral-500: #7A8C87;
+  --color-neutral-600: #606F6B;
+  --color-neutral-700: #4A5652;
+  --color-neutral-800: #343C39;
+  --color-neutral-900: #202523;
 }

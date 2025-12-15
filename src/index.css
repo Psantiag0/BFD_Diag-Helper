@@ -1,1 +1,8 @@
+/* importa apenas os tokens (que carregam todo o tailwind v4) */
 @import "./styles/tokens.css";
+
+/* configurações opcionais globais */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
