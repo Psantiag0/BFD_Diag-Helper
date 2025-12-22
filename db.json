@@ -1,5 +1,16 @@
 {
-  "usuarios": [],
+  "usuarios": [
+    {
+      "id": "8e36",
+      "nome": "jose lopes",
+      "cpf": "12345678922",
+      "cargo": "Laudista",
+      "status": "Ativo",
+      "senha": "123",
+      "tipoUsuario": "medico",
+      "criadoEm": "18/12/2025 17:57"
+    }
+  ],
   "LogsAuditoria": [],
   "pacientes": [
     {
@@ -17,6 +28,24 @@
       "telefone": "(21) 99584-1372",
       "cpf": "318.552.947-90",
       "idade": "33"
+    },
+    {
+      "id": "b4e4",
+      "nome": "Joao silva",
+      "dataNascimento": "1980-12-12",
+      "telefone": "81991254521",
+      "cpf": "12345678998",
+      "idade": "35",
+      "exames": []
+    },
+    {
+      "id": "4e06",
+      "nome": "maria silva",
+      "dataNascimento": "1999-02-25",
+      "telefone": "1823564879",
+      "cpf": "12345678999",
+      "idade": "35",
+      "exames": []
     }
   ],
   "exames": [

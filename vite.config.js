@@ -9,9 +9,8 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          // Dividir dependências externas em chunks separados
-          react: ['react', 'react-dom'],
-          vendor: ['@vitejs/plugin-react', '@tailwindcss/vite'],
+          // Divida apenas bibliotecas que vão para o cliente (browser)
+          'react-vendor': ['react', 'react-dom'],
         },
       },
     },
