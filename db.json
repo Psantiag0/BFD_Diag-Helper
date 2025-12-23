@@ -1,14 +1,36 @@
 {
   "usuarios": [
     {
-      "id": "8e36",
-      "nome": "jose lopes",
-      "cpf": "12345678922",
-      "cargo": "Laudista",
+      "id": "322f",
+      "nome": "Levisgton",
+      "cpf": "08919675406",
+      "cargo": "médico",
       "status": "Ativo",
       "senha": "123",
-      "tipoUsuario": "medico",
-      "criadoEm": "18/12/2025 17:57"
+      "tipoUsuario": "medicoLaudista",
+      "perfis": {
+        "recepcionista": false,
+        "medicoAssistente": false,
+        "medicoLaudista": true,
+        "administrador": false
+      },
+      "criadoEm": "23/12/2025 11:23"
+    },
+    {
+      "id": "69fa",
+      "nome": "Juliana Falcão",
+      "cpf": "12345678988",
+      "cargo": "Médica",
+      "status": "Ativo",
+      "senha": "123",
+      "tipoUsuario": "medicoLaudista",
+      "perfis": {
+        "recepcionista": false,
+        "medicoAssistente": false,
+        "medicoLaudista": true,
+        "administrador": false
+      },
+      "criadoEm": "23/12/2025 11:27"
     }
   ],
   "LogsAuditoria": [],
@@ -46,6 +68,13 @@
       "cpf": "12345678999",
       "idade": "35",
       "exames": []
+    },
+    {
+      "id": "1667",
+      "cpf": "08919675406",
+      "nome": "Levisgton Eustáquio",
+      "dataNascimento": "1991-10-07",
+      "telefone": "81996624215"
     }
   ],
   "exames": [
