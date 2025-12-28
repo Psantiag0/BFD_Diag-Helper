@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import { carregarUsuarios, salvarUsuarios } from "../data/dadosUsuarios"; 
 import PageWrapper from "../components/PageWrapper";
+import { MdSave, MdDeleteSweep, MdPerson, MdSettings, MdShield } from "react-icons/md";
 
 export default function Configuracoes() {
   const navigate = useNavigate(); 
@@ -23,35 +24,15 @@ export default function Configuracoes() {
   const [confirmaSenha, setConfirmaSenha] = useState("");
   const [erroSenha, setErroSenha] = useState("");
 
-  const ehAdministrador = usuarioLocalStorage.tipoUsuario === "administrador";
-
   const [logsAtivos, setLogsAtivos] = useState(true);
   const [tempoSessao, setTempoSessao] = useState(30);
   const [modoPrivado, setModoPrivado] = useState(false);
 
-  const [novoUserFormData, setNovoUserFormData] = useState({
-    nome: "",
-    email: "",
-    senha: "",
-    confirmaSenha: "",
-    tipoUsuario: "medico",
-  });
-  const [erroNovoUser, setErroNovoUser] = useState("");
-  
-  const handleNovoUserChange = (e) => {
-    setNovoUserFormData({ ...novoUserFormData, [e.target.name]: e.target.value });
-    setErroNovoUser("");
-  };
-
-  // ------------------------------------------------------------
-  //  FUNÇÃO COMPLETA E CORRIGIDA — SALVAR CONFIGURAÇÕES
-  // ------------------------------------------------------------
   function salvarConfiguracoes() {
     let deveFazerLogout = false;
     
     if (novaSenha && novaSenha !== confirmaSenha) {
       setErroSenha("As senhas não coincidem!");
-      alert("Erro ao salvar: as senhas não coincidem.");
       return;
     }
     setErroSenha("");
@@ -67,285 +48,155 @@ export default function Configuracoes() {
 
       if (usuarioIndex !== -1) {
         let usuarioAtualizado = { ...todosUsuarios[usuarioIndex] };
-
         usuarioAtualizado.nome = nome;
 
         if (novoEmail !== emailAtual) {
-          const emailJaExiste = todosUsuarios.some((u, index) => index !== usuarioIndex && u.email === novoEmail);
-          if (emailJaExiste) {
-            alert("Erro: O novo email já está sendo usado por outro usuário.");
+          if (todosUsuarios.some((u, index) => index !== usuarioIndex && u.email === novoEmail)) {
+            alert("Erro: O novo email já está sendo usado.");
             return;
           }
           usuarioAtualizado.email = novoEmail;
         }
 
-     
-        //   ATUALIZA A SENHA E SALVA NO BANCO
-        
         if (novaSenha) {
           usuarioAtualizado.senha = novaSenha;
-
-          // grava imediatamente no banco local
-          todosUsuarios[usuarioIndex] = usuarioAtualizado;
-          salvarUsuarios(todosUsuarios);
-
           deveFazerLogout = true;
         }
 
-        // Salva dados sem senha também
         todosUsuarios[usuarioIndex] = usuarioAtualizado;
         salvarUsuarios(todosUsuarios);
 
-        const novoUsuarioSessao = {
+        localStorage.setItem("usuario", JSON.stringify({
           nome: usuarioAtualizado.nome,
           email: usuarioAtualizado.email,
           tipoUsuario: usuarioAtualizado.tipoUsuario
-        };
-        localStorage.setItem("usuario", JSON.stringify(novoUsuarioSessao));
+        }));
 
-        setEmailAtual(novoUsuarioSessao.email);
-        setNovoEmail(novoUsuarioSessao.email);
+        setEmailAtual(usuarioAtualizado.email);
         setNovaSenha("");
         setConfirmaSenha("");
-
-      } else {
-        alert("Erro: Usuário não encontrado no banco de dados.");
-        return;
       }
     }
     
     alert("Configurações salvas com sucesso!");
-    
-    
-    //   LOGOUT AUTOMÁTICO APÓS ALTERAR SENHA
-    
     if (deveFazerLogout) {
-      alert("Senha alterada com sucesso! Faça login novamente.");
       localStorage.removeItem('usuario');
       navigate("/"); 
-      return;
     }
   }
 
-  // ------------------------------------------------------------
-  // CADASTRO DE NOVO USUÁRIO (mantido igual ao seu)
-  // ------------------------------------------------------------
-  const cadastrarNovoUsuario = (e) => {
-    e.preventDefault();
-    const { nome, email, senha, confirmaSenha, tipoUsuario } = novoUserFormData;
-
-    if (!nome || !email || !senha || !confirmaSenha) {
-      setErroNovoUser("Preencha todos os campos, incluindo a confirmação de senha.");
-      return;
-    }
-
-    if (senha !== confirmaSenha) {
-      setErroNovoUser("As senhas não coincidem no formulário de cadastro.");
-      return;
-    }
-    setErroNovoUser("");
-
-    const todosUsuarios = carregarUsuarios();
-
-    if (todosUsuarios.some(u => u.email === email)) {
-      setErroNovoUser("Erro: Este e-mail já está sendo usado por outro usuário.");
-      return;
-    }
-
-    const novoUsuario = { nome, email, senha, tipoUsuario };
-    const novaLista = [...todosUsuarios, novoUsuario];
-    salvarUsuarios(novaLista);
-
-    setNovoUserFormData({ nome: "", email: "", senha: "", confirmaSenha: "", tipoUsuario: "medico" });
-    alert(`Usuário ${novoUsuario.nome} do tipo ${novoUsuario.tipoUsuario} cadastrado com sucesso!`);
-  };
-
-  // ------------------------------------------------------------
-  // LIMPAR TUDO (mantido)
-  // ------------------------------------------------------------
   function limparTudo() {
-    if (confirm("Tem certeza que deseja apagar os dados de Sessão e Preferências? (A lista de usuários cadastrados será MANTIDA)")) {
+    if (confirm("Deseja apagar Sessão e Preferências? O login será encerrado.")) {
       localStorage.removeItem("preferencias");
       localStorage.removeItem("usuario");
-
-      alert("Dados de Sessão e Preferências foram apagados!");
       navigate("/");
     }
   }
 
-  // -------------- JSX MANTIDO EXATAMENTE COMO ESTAVA -----------------
   return (
     <PageWrapper title="Configurações">
-      <div className="max-w-5xl mx-auto p-6">
+      <div className="max-w-4xl mx-auto space-y-6 pb-10">
         
+ 
+        <section className="bg-white p-4 md:p-6 shadow-sm border border-slate-200 rounded-2xl">
+          <div className="flex items-center gap-2 mb-6 text-slate-800">
+            <MdPerson size={24} className="text-blue-600" />
+            <h2 className="text-xl font-bold">Alteração de Cadastro</h2>
+          </div>
 
-        {/* TODO SEU JSX AQUI — NADA FOI ALTERADO */}
-        {/* -------------------------------------------------------------- */}
-        {/* NÃO TOQUEI EM NENHUM HTML/JSX, APENAS NAS FUNÇÕES */}
-        {/* -------------------------------------------------------------- */}
-
-        {/* 🚀 SEÇÃO NOVO CADASTRO (ADMIN ONLY) */}
-      
-
-        {/* -------------------------------------------------------------- */}
-        {/* O RESTANTE DO SEU JSX FOI MANTIDO 100% O MESMO */}
-        {/* -------------------------------------------------------------- */}
-
-        {/* 📝 SEÇÃO ALTERAÇÃO DE CADASTRO */}
-        <div className="bg-white p-6 shadow-md rounded-xl mb-8">
-          <h2 className="text-xl font-semibold mb-4">Alteração de Cadastro</h2>
-
-          <div className="grid md:grid-cols-2 gap-6">
-
-            <div>
-              <label className="font-medium">Nome:</label>
-              <input
-                type="text"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-                className="w-full border p-3 rounded-lg mt-2"
-              />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <Input label="Nome" value={nome} onChange={(e) => setNome(e.target.value)} />
+            
+            <div className="flex flex-col">
+              <label className="text-xs font-bold text-slate-500 mb-1 uppercase ml-1">E-mail Atual</label>
+              <input type="text" value={emailAtual} readOnly className="w-full border border-slate-200 p-2.5 rounded-lg bg-slate-50 text-slate-400 cursor-not-allowed outline-none" />
             </div>
 
-            <div>
-              <label className="font-medium">E-mail Atual:</label>
-              <input
-                type="text"
-                value={emailAtual}
-                readOnly
-                className="w-full border p-3 rounded-lg mt-2 bg-gray-100 cursor-not-allowed"
-              />
-            </div>
-
-            <div>
-              <label className="font-medium">Novo E-mail:</label>
-              <input
-                type="email"
-                value={novoEmail}
-                onChange={(e) => setNovoEmail(e.target.value)}
-                placeholder="Digite o novo e-mail"
-                className="w-full border p-3 rounded-lg mt-2"
-              />
-            </div>
-
-            <div>
-              <label className="font-medium">Nova Senha:</label>
-              <input
-                type="password"
-                value={novaSenha}
-                onChange={(e) => setNovaSenha(e.target.value)}
-                placeholder="Deixe vazio para manter a senha"
-                className="w-full border p-3 rounded-lg mt-2"
-              />
-            </div>
-
-            <div>
-              <label className="font-medium">Confirme a Nova Senha:</label>
-              <input
-                type="password"
-                value={confirmaSenha}
-                onChange={(e) => setConfirmaSenha(e.target.value)}
-                placeholder="Confirme a nova senha"
-                className="w-full border p-3 rounded-lg mt-2"
-              />
-              {erroSenha && (
-                <p className="text-red-500 text-sm mt-1">{erroSenha}</p>
-              )}
+            <Input label="Novo E-mail" type="email" value={novoEmail} onChange={(e) => setNovoEmail(e.target.value)} />
+            <Input label="Nova Senha" type="password" value={novaSenha} onChange={(e) => setNovaSenha(e.target.value)} placeholder="••••••••" />
+            
+            <div className="md:col-span-1">
+              <Input label="Confirme a Senha" type="password" value={confirmaSenha} onChange={(e) => setConfirmaSenha(e.target.value)} placeholder="••••••••" />
+              {erroSenha && <p className="text-red-500 text-xs mt-1 ml-1 font-medium">{erroSenha}</p>}
             </div>
           </div>
+        </section>
+
+    
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Preferências */}
+          <section className="bg-white p-6 shadow-sm border border-slate-200 rounded-2xl">
+            <div className="flex items-center gap-2 mb-6 text-slate-800">
+              <MdSettings size={22} className="text-purple-600" />
+              <h2 className="text-lg font-bold">Preferências</h2>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="text-xs font-bold text-slate-500 uppercase ml-1">Tema do Sistema</label>
+                <select value={tema} onChange={(e) => setTema(e.target.value)} className="w-full border border-slate-300 p-2.5 rounded-lg mt-1 bg-white outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="claro">Modo Claro</option>
+                  <option value="escuro">Modo Escuro</option>
+                </select>
+              </div>
+
+              <Toggle label="Menu lateral expandido" checked={menuExpandido} onChange={() => setMenuExpandido(!menuExpandido)} />
+              <Toggle label="Mostrar meu avatar" checked={mostrarAvatar} onChange={() => setMostrarAvatar(!mostrarAvatar)} />
+            </div>
+          </section>
+
+          {/* Sistema */}
+          <section className="bg-white p-6 shadow-sm border border-slate-200 rounded-2xl">
+            <div className="flex items-center gap-2 mb-6 text-slate-800">
+              <MdShield size={22} className="text-green-600" />
+              <h2 className="text-lg font-bold">Segurança</h2>
+            </div>
+
+            <div className="space-y-4">
+              <Toggle label="Logs de auditoria" checked={logsAtivos} onChange={() => setLogsAtivos(!logsAtivos)} />
+              <Toggle label="Modo de privacidade" checked={modoPrivado} onChange={() => setModoPrivado(!modoPrivado)} />
+              
+              <div>
+                <label className="text-xs font-bold text-slate-500 uppercase ml-1">Sessão (minutos)</label>
+                <input type="number" value={tempoSessao} onChange={(e) => setTempoSessao(e.target.value)} className="w-full border border-slate-300 p-2.5 rounded-lg mt-1 outline-none focus:ring-2 focus:ring-blue-500" />
+              </div>
+            </div>
+          </section>
         </div>
 
-        {/* PREFERÊNCIAS */}
-        <div className="bg-white p-6 shadow-md rounded-xl mb-8">
-          <h2 className="text-xl font-semibold mb-4">Preferências do Usuário</h2>
-           <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <label className="font-medium">Tema:</label>
-              <select
-                value={tema}
-                onChange={(e) => setTema(e.target.value)}
-                className="w-full border p-3 rounded-lg mt-2"
-              >
-                <option value="claro">Claro</option>
-                <option value="escuro">Escuro</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="font-medium">Menu lateral expandido:</label>
-              <input
-                type="checkbox"
-                checked={menuExpandido}
-                onChange={() => setMenuExpandido(!menuExpandido)}
-                className="ml-2"
-              />
-            </div>
-
-            <div>
-              <label className="font-medium">Mostrar avatar:</label>
-              <input
-                type="checkbox"
-                checked={mostrarAvatar}
-                onChange={() => setMostrarAvatar(!mostrarAvatar)}
-                className="ml-2"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* SISTEMA */}
-        <div className="bg-white p-6 shadow-md rounded-xl mb-8">
-          <h2 className="text-xl font-semibold mb-4">Configurações do Sistema</h2>
-           <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <label className="font-medium">Ativar logs de auditoria:</label>
-              <input
-                type="checkbox"
-                checked={logsAtivos}
-                onChange={() => setLogsAtivos(!logsAtivos)}
-                className="ml-2"
-              />
-            </div>
-
-            <div>
-              <label className="font-medium">Tempo da sessão (minutos):</label>
-              <input
-                type="number"
-                value={tempoSessao}
-                onChange={(e) => setTempoSessao(e.target.value)}
-                className="w-full border p-3 rounded-lg mt-2"
-              />
-            </div>
-
-            <div>
-              <label className="font-medium">Modo de privacidade:</label>
-              <input
-                type="checkbox"
-                checked={modoPrivado}
-                onChange={() => setModoPrivado(!modoPrivado)}
-                className="ml-2"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* BOTÕES */}
-        <div className="flex gap-4">
-          <button
-            onClick={salvarConfiguracoes}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 cursor-pointer"
-          >
-            Salvar Configurações
+        {/* 🚀 BOTÕES DE AÇÃO */}
+        <div className="flex flex-col sm:flex-row gap-4 pt-4">
+          <button onClick={salvarConfiguracoes} className="flex-1 flex items-center justify-center gap-2 px-6 py-3.5 bg-slate-800 text-white rounded-xl shadow-lg hover:bg-slate-900 transition-all cursor-pointer font-bold">
+            <MdSave size={20} /> Salvar Alterações
           </button>
 
-          <button
-            onClick={limparTudo}
-            className="px-6 py-3 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 cursor-pointer"
-          >
-            Limpar Sessão e Preferências
+          <button onClick={limparTudo} className="flex items-center justify-center gap-2 px-6 py-3.5 border border-red-200 bg-red-50 text-red-600 rounded-xl hover:bg-red-100 transition-all cursor-pointer font-medium">
+            <MdDeleteSweep size={20} /> Limpar Cache
           </button>
         </div>
       </div>
     </PageWrapper>
+  );
+}
+
+/* COMPONENTES AUXILIARES INTERNOS */
+function Input({ label, type = "text", ...props }) {
+  return (
+    <div className="flex flex-col w-full">
+      <label className="text-xs font-bold text-slate-500 mb-1 ml-1 uppercase">{label}</label>
+      <input type={type} className="border border-slate-300 p-2.5 rounded-lg w-full bg-white focus:ring-2 focus:ring-blue-500 outline-none transition-all placeholder:text-slate-300" {...props} />
+    </div>
+  );
+}
+
+function Toggle({ label, checked, onChange }) {
+  return (
+    <label className="flex items-center justify-between p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition-colors border border-transparent hover:border-slate-100">
+      <span className="text-sm text-slate-700 font-medium">{label}</span>
+      <div className="relative inline-flex items-center cursor-pointer">
+        <input type="checkbox" checked={checked} onChange={onChange} className="sr-only peer" />
+        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+      </div>
+    </label>
   );
 }
