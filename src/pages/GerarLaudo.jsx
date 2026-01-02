@@ -8,6 +8,8 @@ import ModalConcluido from "../modals/ModalConcluido";
 import ModalFalha from "../modals/ModalFalha";
 import ModalProcessando from "../modals/ModalProcessando";
 
+// --- IMPORTAÇÃO DO SERVIÇO DE AUDITORIA ---
+import { registrarLog } from "../services/auditService";
 import { MdPersonSearch, MdDescription, MdCloudUpload, MdClose, MdCheckCircle } from "react-icons/md";
 
 export default function GerarLaudo() {
@@ -24,6 +26,9 @@ export default function GerarLaudo() {
   const [dataLaudo, setDataLaudo] = useState("");
   const [laudos, setLaudos] = useState([]);
 
+  // Recupera o nome do usuário que está logado para o log
+  const usuarioLogado = localStorage.getItem("usuarioNome") || "Usuário Sistema";
+
   useEffect(() => {
     fetch("http://localhost:3001/pacientes")
       .then((res) => res.json())
@@ -36,7 +41,7 @@ export default function GerarLaudo() {
       .then((res) => res.json())
       .then((data) => {
         const medicosAtivos = data.filter(
-          (u) => u.status === "Ativo" && (u.perfis?.medicoAssistente || u.perfis?.medicoLaudista)
+          (u) => u.status === "Ativo" && (u.perfil === "medico" || u.cargo.includes("Médico"))
         );
         setMedicos(medicosAtivos);
       })
@@ -64,7 +69,8 @@ export default function GerarLaudo() {
     setPreviews((prev) => prev.filter((_, i) => i !== idx));
   }
 
-  function handleGerarLaudo() {
+  // --- FUNÇÃO ATUALIZADA COM LOG DE AUDITORIA ---
+  async function handleGerarLaudo() {
     if (!medicoSelecionado || !pacienteSelecionado || !dataLaudo || imagens.length === 0) {
       setModalAberto("falha");
       return;
@@ -72,7 +78,7 @@ export default function GerarLaudo() {
 
     setModalAberto("processando");
 
-    setTimeout(() => {
+    try {
       const novoLaudo = {
         id: Date.now(),
         medico: medicoSelecionado,
@@ -82,17 +88,33 @@ export default function GerarLaudo() {
         imagens: previews,
       };
 
-      setLaudos((prev) => [novoLaudo, ...prev]);
-      setModalAberto("concluido");
+      // REGISTRO DE LOG
+      // Registra quem fez, o que fez e o detalhe (nome do paciente)
+      await registrarLog(
+        usuarioLogado, 
+        `Gerou laudo médico para o paciente: ${pacienteSelecionado.nome}`, 
+        "LAUDO"
+      );
 
-      setPacienteSelecionado(null);
-      setMedicoSelecionado(null);
-      setDataLaudo("");
-      setObservacoes("");
-      setImagens([]);
-      setPreviews([]);
-      setPesquisa("");
-    }, 1500);
+      // Simula o tempo de processamento para feedback visual
+      setTimeout(() => {
+        setLaudos((prev) => [novoLaudo, ...prev]);
+        setModalAberto("concluido");
+
+        // Limpa o formulário após o sucesso
+        setPacienteSelecionado(null);
+        setMedicoSelecionado(null);
+        setDataLaudo("");
+        setObservacoes("");
+        setImagens([]);
+        setPreviews([]);
+        setPesquisa("");
+      }, 1500);
+
+    } catch (error) {
+      console.error("Erro ao processar laudo ou log:", error);
+      setModalAberto("falha");
+    }
   }
 
   return (
@@ -107,7 +129,7 @@ export default function GerarLaudo() {
               1. Selecionar Paciente
             </h2>
             {pacienteSelecionado && (
-              <span className="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+              <span className="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 animate-bounce">
                 <MdCheckCircle /> Selecionado
               </span>
             )}
@@ -132,7 +154,7 @@ export default function GerarLaudo() {
         </section>
 
         {/* ETAPA 2: FORMULÁRIO DO LAUDO */}
-        <section className={`bg-white rounded-2xl shadow-sm border border-slate-200 transition-opacity duration-500 ${!pacienteSelecionado ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+        <section className={`bg-white rounded-2xl shadow-sm border border-slate-200 transition-all duration-500 ${!pacienteSelecionado ? 'opacity-40 grayscale pointer-events-none' : 'opacity-100'}`}>
           <div className="bg-slate-50 px-6 py-4 border-b border-slate-200">
             <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
               <MdDescription className="text-blue-600" size={22} />
@@ -141,7 +163,6 @@ export default function GerarLaudo() {
           </div>
 
           <div className="p-6 md:p-8 space-y-6">
-            {/* Grid de Inputs Principais */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-bold text-slate-500 uppercase ml-1">Médico Responsável</label>
@@ -159,7 +180,7 @@ export default function GerarLaudo() {
                 <label className="text-xs font-bold text-slate-500 uppercase ml-1">Paciente</label>
                 <input
                   type="text"
-                  value={pacienteSelecionado?.nome || "Nenhum selecionado"}
+                  value={pacienteSelecionado?.nome || "Aguardando seleção..."}
                   disabled
                   className="border border-slate-200 rounded-xl p-3 bg-slate-50 text-slate-500 font-medium"
                 />
@@ -176,7 +197,6 @@ export default function GerarLaudo() {
               </div>
             </div>
 
-            {/* Upload de Imagens */}
             <div className="space-y-3">
               <label className="text-xs font-bold text-slate-500 uppercase ml-1">Imagens do Exame</label>
               <div className="flex items-center justify-center w-full">
@@ -189,7 +209,6 @@ export default function GerarLaudo() {
                 </label>
               </div>
 
-              {/* Previews das Imagens */}
               {previews.length > 0 && (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 pt-2">
                   {previews.map((src, i) => (
@@ -207,7 +226,6 @@ export default function GerarLaudo() {
               )}
             </div>
 
-            {/* Observações */}
             <div className="flex flex-col gap-1">
               <label className="text-xs font-bold text-slate-500 uppercase ml-1">Observações Clínicas</label>
               <textarea
@@ -219,7 +237,6 @@ export default function GerarLaudo() {
               />
             </div>
 
-            {/* Botão de Ação */}
             <button
               onClick={handleGerarLaudo}
               className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg shadow-lg shadow-blue-200 hover:bg-blue-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
@@ -230,14 +247,12 @@ export default function GerarLaudo() {
           </div>
         </section>
 
-        {/* LISTA DE LAUDOS GERADOS */}
         {laudos.length > 0 && (
           <div className="animate-in slide-in-from-bottom duration-500">
             <ListaLaudos laudos={laudos} />
           </div>
         )}
 
-        {/* MODAIS */}
         <ModalConcluido open={modalAberto === "concluido"} onClose={() => setModalAberto(null)} />
         <ModalFalha open={modalAberto === "falha"} onClose={() => setModalAberto(null)} />
         <ModalProcessando open={modalAberto === "processando"} />

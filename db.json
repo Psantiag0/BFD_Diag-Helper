@@ -1,45 +1,528 @@
 {
   "usuarios": [
     {
-      "id": "322f",
-      "nome": "Levisgton",
-      "cpf": "08919675406",
-      "cargo": "médico",
+      "id": "1",
+      "nome": "Admin Sistema",
+      "cpf": "000.000.000-00",
+      "email": "admin@app.com",
+      "cargo": "Administrador",
+      "perfil": "administrador",
       "status": "Ativo",
       "senha": "123",
-      "tipoUsuario": "medicoLaudista",
-      "perfis": {
-        "recepcionista": false,
-        "medicoAssistente": false,
-        "medicoLaudista": true,
-        "administrador": false
-      },
-      "criadoEm": "23/12/2025 11:23"
+      "criadoEm": "02/01/2026 10:50"
     },
     {
-      "id": "69fa",
-      "nome": "Juliana Falcão",
-      "cpf": "12345678988",
-      "cargo": "Médica",
+      "id": "1ab1",
+      "nome": "Levisgton Eustáquio",
+      "cpf": "123.145.678-99",
+      "email": "levisgton@medico.com",
+      "cargo": "Médico Generalista",
+      "perfil": "medico",
       "status": "Ativo",
       "senha": "123",
-      "tipoUsuario": "medicoLaudista",
-      "perfis": {
-        "recepcionista": false,
-        "medicoAssistente": false,
-        "medicoLaudista": true,
-        "administrador": false
-      },
-      "criadoEm": "23/12/2025 11:27"
+      "criadoEm": "02/01/2026 10:57"
+    },
+    {
+      "id": "556f",
+      "nome": "Joao Senna",
+      "cpf": "222.222.222-22",
+      "email": "joao@medico.com",
+      "cargo": "Médico Laudista",
+      "perfil": "medico",
+      "status": "Ativo",
+      "senha": "123",
+      "criadoEm": "02/01/2026 11:13"
+    },
+    {
+      "id": "542b",
+      "nome": "Fulano Silva",
+      "cpf": "888.888.888-88",
+      "email": "fulano@recepcao.com",
+      "cargo": "Recepcionista",
+      "perfil": "recepcao",
+      "status": "Ativo",
+      "senha": "123",
+      "criadoEm": "02/01/2026 11:26"
+    },
+    {
+      "id": "7f9b",
+      "nome": "Ficticio da Silva e Silva",
+      "cpf": "555.555.555-55",
+      "email": "ficticio@medico.com",
+      "cargo": "Médico Assistente",
+      "perfil": "medico",
+      "status": "Ativo",
+      "senha": "123",
+      "criadoEm": "02/01/2026 11:52"
     }
   ],
-  "LogsAuditoria": [],
+  "LogsAuditoria": [
+    {
+      "id": "fdc6",
+      "usuario": "Administrador Geral",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "data": "2026-01-02T01:07:23.420Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "8a28",
+      "usuario": "Administrador Geral",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "data": "2026-01-02T01:08:11.363Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "5e9f",
+      "usuario": "joao",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "data": "2026-01-02T12:09:50.586Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "86b6",
+      "usuario": "Usuário Desconhecido",
+      "acao": "FALHA: GET em /pacientes",
+      "tipo": "ERRO",
+      "data": "2026-01-02T12:18:09.879Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "29fe",
+      "usuario": "Usuário Desconhecido",
+      "acao": "FALHA: GET em /pacientes",
+      "tipo": "ERRO",
+      "data": "2026-01-02T12:18:09.923Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "d5fc",
+      "usuario": "Usuário Desconhecido",
+      "acao": "Realizou POST na rota /pacientes",
+      "tipo": "INFO",
+      "data": "2026-01-02T12:19:18.296Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "67e7",
+      "usuario": "Administrador Geral",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "data": "2026-01-02T12:20:05.393Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "3984",
+      "usuario": "Usuário Desconhecido",
+      "acao": "Realizou PUT na rota /pacientes/6eb6",
+      "tipo": "INFO",
+      "data": "2026-01-02T12:20:20.606Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "ce22",
+      "usuario": "joao",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "data": "2026-01-02T12:22:34.412Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "e987",
+      "usuario": "Usuário Desconhecido",
+      "acao": "Realizou POST na rota /pacientes",
+      "tipo": "INFO",
+      "data": "2026-01-02T12:24:17.508Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "ca36",
+      "usuario": "Usuário Desconhecido",
+      "acao": "Realizou DELETE na rota /pacientes/cabd",
+      "tipo": "INFO",
+      "data": "2026-01-02T12:25:04.762Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "c38a",
+      "usuario": "Usuário Desconhecido",
+      "acao": "Realizou POST na rota /pacientes",
+      "tipo": "INFO",
+      "data": "2026-01-02T12:28:12.101Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "c79b",
+      "usuario": "Usuário Desconhecido",
+      "acao": "Realizou DELETE na rota /pacientes/3200",
+      "tipo": "INFO",
+      "data": "2026-01-02T12:28:40.134Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "b6c6",
+      "usuario": "joao",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "data": "2026-01-02T12:29:31.760Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "b84b",
+      "usuario": "joao",
+      "acao": "Realizou POST na rota /pacientes",
+      "tipo": "INFO",
+      "data": "2026-01-02T12:30:29.119Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "37c8",
+      "usuario": "joao",
+      "acao": "Realizou DELETE na rota /pacientes/4bf1",
+      "tipo": "INFO",
+      "data": "2026-01-02T12:30:51.614Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "0b75",
+      "usuario": "joao",
+      "acao": "Realizou POST em /pacientes (Paciente: Ficticio da Silva)",
+      "tipo": "INFO",
+      "data": "2026-01-02T12:34:49.592Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "012c",
+      "usuario": "joao",
+      "acao": "Realizou PUT em /pacientes/a95b (Paciente: Ficticio da Silva)",
+      "tipo": "INFO",
+      "data": "2026-01-02T12:35:25.421Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "3e54",
+      "usuario": "joao",
+      "acao": "Realizou POST (Paciente: Maria Ficticio)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-02T12:49:03.521Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "9814",
+      "usuario": "joao",
+      "acao": "Editou dados do paciente: Maria Ficticio da Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "NOME: \"Maria Ficticio\" → \"Maria Ficticio da Silva\"",
+      "data": "2026-01-02T12:49:24.930Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "30f6",
+      "usuario": "joao",
+      "acao": "Editou dados do paciente: Maria Ficticio da Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "TELEFONE: \"(81)9 2222-2222\" → \"(81)9 2222-3333\"",
+      "data": "2026-01-02T12:49:46.332Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "22ea",
+      "usuario": "Administrador Geral",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-02T12:51:12.223Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "90e6",
+      "usuario": "Administrador Geral",
+      "acao": "Realizou POST (Paciente: Jose ficticio)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-02T13:10:12.625Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "aeab",
+      "usuario": "Administrador Geral",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-02T13:11:57.349Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "c79e",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-02T13:56:52.383Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "5ee2",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou POST (Paciente: Levisgton Eustáquio)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-02T13:57:52.443Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "b35f",
+      "usuario": "Admin Sistema",
+      "acao": "Cadastrou novo usuário: Levisgton Eustáquio",
+      "tipo": "CADASTRO",
+      "detalhes": null,
+      "data": "2026-01-02T13:57:52.444Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "317d",
+      "usuario": "Levisgton Eustáquio",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-02T13:58:09.746Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "c390",
+      "usuario": "Levisgton Eustáquio",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-02T14:00:26.491Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "0c82",
+      "usuario": "Levisgton Eustáquio",
+      "acao": "Realizou POST (Paciente: Genival Souza)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-02T14:01:15.726Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "a855",
+      "usuario": "Levisgton Eustáquio",
+      "acao": "Realizou POST (Paciente: Adamastor)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-02T14:03:14.388Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "ac6a",
+      "usuario": "Levisgton Eustáquio",
+      "acao": "Editou dados do paciente: Adamastor",
+      "tipo": "EDIÇÃO",
+      "detalhes": "TELEFONE: \"(55) 5 5555-5555\" → \"(55) 6 6666-6666\"",
+      "data": "2026-01-02T14:03:25.762Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "b3f8",
+      "usuario": "Levisgton Eustáquio",
+      "acao": "Gerou laudo médico para o paciente: Henrique Lima",
+      "tipo": "LAUDO",
+      "detalhes": null,
+      "data": "2026-01-02T14:05:59.109Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "8566",
+      "usuario": "Levisgton Eustáquio",
+      "acao": "Realizou POST (Paciente: Joao Senna)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-02T14:13:59.283Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "d8b6",
+      "usuario": "Levisgton Eustáquio",
+      "acao": "Cadastrou novo usuário: Joao Senna",
+      "tipo": "CADASTRO",
+      "detalhes": null,
+      "data": "2026-01-02T14:13:59.286Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "4021",
+      "usuario": "Joao Senna",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-02T14:14:12.894Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "788b",
+      "usuario": "Levisgton Eustáquio",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-02T14:18:35.141Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "9e37",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-02T14:25:47.169Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "6cd3",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou POST (Paciente: Fulano Silva)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-02T14:26:51.640Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "e1cb",
+      "usuario": "Admin Sistema",
+      "acao": "Cadastrou novo usuário: Fulano Silva",
+      "tipo": "CADASTRO",
+      "detalhes": null,
+      "data": "2026-01-02T14:26:51.657Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "c525",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou POST (Paciente: Paciencio da Silva)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-02T14:27:38.144Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "ab6e",
+      "usuario": "Admin Sistema",
+      "acao": "Editou dados do paciente: Paciencio da Silva e Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "NOME: \"Paciencio da Silva\" → \"Paciencio da Silva e Silva\"",
+      "data": "2026-01-02T14:27:56.501Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "c232",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Fulano Silva e Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "NOME: \"Fulano Silva\" → \"Fulano Silva e Silva\"",
+      "data": "2026-01-02T14:30:08.887Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "b059",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Fulano Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "NOME: \"Fulano Silva e Silva\" → \"Fulano Silva\"",
+      "data": "2026-01-02T14:34:39.480Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "f434",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Fulano Silva e silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "NOME: \"Fulano Silva\" → \"Fulano Silva e silva\"",
+      "data": "2026-01-02T14:38:25.131Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "3dc2",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-02T14:40:42.483Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "af77",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Fulano Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "NOME: \"Fulano Silva e silva\" → \"Fulano Silva\"",
+      "data": "2026-01-02T14:41:13.657Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "b066",
+      "usuario": "Admin Sistema",
+      "acao": "Editou dados do paciente: Carlos Henrique Lima",
+      "tipo": "EDIÇÃO",
+      "detalhes": "TELEFONE: \"(21) 99584-1372\" → \"(81) 9 9999-9999\"",
+      "data": "2026-01-02T14:46:51.370Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "9c43",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou POST (Paciente: Ficticio da Silva)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-02T14:52:23.961Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "ca2e",
+      "usuario": "Admin Sistema",
+      "acao": "Cadastrou novo usuário: Ficticio da Silva",
+      "tipo": "CADASTRO",
+      "detalhes": null,
+      "data": "2026-01-02T14:52:23.963Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "9a4a",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Ficticio da Silva e Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "NOME: \"Ficticio da Silva\" → \"Ficticio da Silva e Silva\"",
+      "data": "2026-01-02T14:52:51.081Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "13bc",
+      "usuario": "Admin Sistema",
+      "acao": "Editou dados do paciente: Carlos Henrique Lima",
+      "tipo": "EDIÇÃO",
+      "detalhes": "TELEFONE: \"(81) 9 9999-9999\" → \"(81) 8 8888-8888\"",
+      "data": "2026-01-02T14:53:14.905Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "911e",
+      "usuario": "Admin Sistema",
+      "acao": "Gerou laudo médico para o paciente: Henrique Lima",
+      "tipo": "LAUDO",
+      "detalhes": null,
+      "data": "2026-01-02T14:53:49.219Z",
+      "ip": "127.0.0.1"
+    }
+  ],
   "pacientes": [
     {
       "id": "7463",
       "nome": "Carlos Henrique Lima",
-      "dataNascimento": "1999-12-20",
-      "telefone": "(21) 99584-1372",
+      "dataNascimento": "1980-12-20",
+      "telefone": "(81) 8 8888-8888",
       "cpf": "318.552.947-90",
       "idade": "33"
     },
@@ -75,6 +558,48 @@
       "nome": "Levisgton Eustáquio",
       "dataNascimento": "1991-10-07",
       "telefone": "81996624215"
+    },
+    {
+      "id": "6eb6",
+      "cpf": "135.111.222-55",
+      "nome": "Ticio Ficticio",
+      "dataNascimento": "1975-02-01",
+      "telefone": "(81) 91234-5678"
+    },
+    {
+      "id": "a95b",
+      "cpf": "213.222.145-45",
+      "nome": "Ficticio da Silva",
+      "dataNascimento": "1982-05-09",
+      "telefone": "81985252222"
+    },
+    {
+      "id": "f503",
+      "cpf": "123.456.789-00",
+      "nome": "Maria Ficticio da Silva",
+      "dataNascimento": "1992-04-23",
+      "telefone": "(81)9 2222-3333"
+    },
+    {
+      "id": "ce5b",
+      "cpf": "333.333.333-33",
+      "nome": "Genival Souza",
+      "dataNascimento": "1966-05-06",
+      "telefone": "8888888888888888888"
+    },
+    {
+      "id": "ac2e",
+      "cpf": "555.555.555-55",
+      "nome": "Adamastor",
+      "dataNascimento": "1977-02-25",
+      "telefone": "(55) 6 6666-6666"
+    },
+    {
+      "id": "66dd",
+      "cpf": "666.666.666-66",
+      "nome": "Paciencio da Silva e Silva",
+      "dataNascimento": "2025-05-05",
+      "telefone": "(99) 9 9999-9999"
     }
   ],
   "exames": [
