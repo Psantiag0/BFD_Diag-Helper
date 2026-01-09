@@ -515,6 +515,87 @@
       "detalhes": null,
       "data": "2026-01-02T14:53:49.219Z",
       "ip": "127.0.0.1"
+    },
+    {
+      "id": "75b2",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-09T01:43:03.539Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "3e6a",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-09T01:48:59.313Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "f2b7",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou POST (Paciente: aaaaaaaaa)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-09T01:50:45.018Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "0e17",
+      "usuario": "Admin Sistema",
+      "acao": "Editou dados do paciente: Levisgton Eustáquio",
+      "tipo": "EDIÇÃO",
+      "detalhes": "CPF: \"08919675406\" → \"089.196.754-06\"",
+      "data": "2026-01-09T01:51:11.685Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "f990",
+      "usuario": "Admin Sistema",
+      "acao": "Editou dados do paciente: maria silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "CPF: \"12345678999\" → \"123.456.789-99\"",
+      "data": "2026-01-09T01:51:20.007Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "8550",
+      "usuario": "Admin Sistema",
+      "acao": "Editou dados do paciente: Joao silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "CPF: \"12345678998\" → \"123.456.789-98\"",
+      "data": "2026-01-09T01:51:25.943Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "c261",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou DELETE (ID: 3a0b)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-09T01:51:39.644Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "fbd8",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou POST (Paciente: aaaaaaaaaa)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-09T02:04:18.746Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "7d3e",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou DELETE (ID: e94b)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-09T02:04:22.374Z",
+      "ip": "127.0.0.1"
     }
   ],
   "pacientes": [
@@ -539,7 +620,7 @@
       "nome": "Joao silva",
       "dataNascimento": "1980-12-12",
       "telefone": "81991254521",
-      "cpf": "12345678998",
+      "cpf": "123.456.789-98",
       "idade": "35",
       "exames": []
     },
@@ -548,13 +629,13 @@
       "nome": "maria silva",
       "dataNascimento": "1999-02-25",
       "telefone": "1823564879",
-      "cpf": "12345678999",
+      "cpf": "123.456.789-99",
       "idade": "35",
       "exames": []
     },
     {
       "id": "1667",
-      "cpf": "08919675406",
+      "cpf": "089.196.754-06",
       "nome": "Levisgton Eustáquio",
       "dataNascimento": "1991-10-07",
       "telefone": "81996624215"
