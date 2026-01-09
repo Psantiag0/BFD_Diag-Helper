@@ -596,6 +596,186 @@
       "detalhes": null,
       "data": "2026-01-09T02:04:22.374Z",
       "ip": "127.0.0.1"
+    },
+    {
+      "id": "3d78",
+      "usuario": "Administrador Geral",
+      "acao": "ERRO: POST em /LogsAuditoria",
+      "tipo": "ERRO",
+      "detalhes": null,
+      "data": "2026-01-09T02:48:06.214Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "4be5",
+      "usuario": "Administrador Geral",
+      "acao": "ERRO: POST em /LogsAuditoria",
+      "tipo": "ERRO",
+      "detalhes": null,
+      "data": "2026-01-09T02:48:06.216Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "a8f9",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-09T02:48:13.875Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "7597",
+      "usuario": "Admin Sistema",
+      "acao": "ERRO: POST em /LogsAuditoria",
+      "tipo": "ERRO",
+      "detalhes": null,
+      "data": "2026-01-09T03:12:44.870Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "4336",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-09T03:12:51.408Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "3f0d",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-09T03:13:37.078Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "4876",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-09T03:17:43.748Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "902f",
+      "usuario": "Admin Sistema",
+      "acao": "ERRO: POST em /LogsAuditoria",
+      "tipo": "ERRO",
+      "detalhes": null,
+      "data": "2026-01-09T03:23:06.390Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "5fcb",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-09T03:23:11.958Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "eb4f",
+      "usuario": "Admin Sistema",
+      "acao": "ERRO: POST em /LogsAuditoria",
+      "tipo": "ERRO",
+      "detalhes": null,
+      "data": "2026-01-09T03:28:00.633Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "c107",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-09T03:28:05.477Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "db56",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-09T03:29:46.766Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "662c",
+      "usuario": "Admin Sistema",
+      "acao": "ERRO: POST em /LogsAuditoria",
+      "tipo": "ERRO",
+      "detalhes": null,
+      "data": "2026-01-09T03:44:07.463Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "c2a4",
+      "usuario": "Admin Sistema",
+      "acao": "ERRO: POST em /LogsAuditoria",
+      "tipo": "ERRO",
+      "detalhes": null,
+      "data": "2026-01-09T03:44:07.878Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "92bc",
+      "usuario": "Admin Sistema",
+      "acao": "ERRO: POST em /LogsAuditoria",
+      "tipo": "ERRO",
+      "detalhes": null,
+      "data": "2026-01-09T03:44:07.838Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "956e",
+      "usuario": "Admin Sistema",
+      "acao": "ERRO: POST em /LogsAuditoria",
+      "tipo": "ERRO",
+      "detalhes": null,
+      "data": "2026-01-09T03:44:08.278Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "9683",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-09T03:44:14.629Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "2f62",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-09T03:48:02.606Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "5146",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-09T03:52:54.601Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "8c73",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-09T03:54:09.873Z",
+      "ip": "127.0.0.1"
     }
   ],
   "pacientes": [

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   FcHome,
@@ -7,17 +6,9 @@ import {
   FcClock,
   FcSettings,
   FcPortraitMode,
+  FcUnlock,
 } from "react-icons/fc";
 import Logout from "./Logout";
-
-const menuItems = [
-  { to: "/dashboard", icon: FcHome, label: "Dashboard" },
-  { to: "/GerarLaudo", icon: FcPlus, label: "Gerar laudo" },
-  { to: "/CadastroUsuario", icon: FcBusinessman, label: "Usuário" },
-  { to: "/CadastroPacientes", icon: FcPortraitMode, label: "Paciente" },
-  { to: "/LogsAuditoria", icon: FcClock, label: "Logs de Auditoria" },
-  { to: "/configuracoes", icon: FcSettings, label: "Configurações" },
-];
 
 export default function Navbar({
   expanded,
@@ -25,36 +16,57 @@ export default function Navbar({
   mobileOpen,
   setMobileOpen,
 }) {
-  // Busca o usuário no localStorage ou cria um usuário padrão
   const usuario = JSON.parse(localStorage.getItem("usuario")) || {
-    nome: "Usuário Padrão",
+    nome: "Usuário",
     email: "admin@app.com",
-    role: "administrador", // padrão
+    perfil: "administrador",
   };
 
-  // Mapa de avatars por tipo de usuário
- const avatarPorTipo = {
-  recepcionista:
-    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=256&q=80", // mulher sorrindo
-  administrador:
-    "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?w=256&q=80", // homem formal
-  medico:
-    "https://images.unsplash.com/photo-1550831107-1553da8c8464?w=256&q=80", // homem com jaleco
-};
+  const avatarPorTipo = {
+    recepcionista:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=256&q=80",
+    administrador:
+      "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?w=256&q=80",
+    medico:
+      "https://images.unsplash.com/photo-1550831107-1553da8c8464?w=256&q=80",
+  };
 
+  const avatarFinal =
+    avatarPorTipo[usuario.perfil] ||
+    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=facearea&facepad=2.25&w=256&q=80";
 
-  // Escolhe o avatar correto: foto do usuário > avatar por tipo > genérico
- const avatarFinal =
-  avatarPorTipo[usuario?.perfil] || 
-  usuario?.avatarUrl || 
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=facearea&facepad=2.25&w=256&q=80";
+  const menuItems = [
+    { to: "/dashboard", icon: FcHome, label: "Dashboard" },
+    { to: "/GerarLaudo", icon: FcPlus, label: "Gerar laudo" },
+    { to: "/CadastroPacientes", icon: FcPortraitMode, label: "Paciente" },
 
+    // 🔐 APENAS ADMIN
+    usuario.perfil === "administrador" && {
+      to: "/CadastroUsuario",
+      icon: FcBusinessman,
+      label: "Usuários",
+    },
+
+    usuario.perfil === "administrador" && {
+      to: "/AdminSolicitacoesSenha",
+      icon: FcUnlock,
+      label: "Solicitações de senha",
+    },
+
+    usuario.perfil === "administrador" && {
+      to: "/LogsAuditoria",
+      icon: FcClock,
+      label: "Logs de Auditoria",
+    },
+
+    { to: "/Configuracoes", icon: FcSettings, label: "Configurações" },
+  ].filter(Boolean);
 
   return (
     <>
-      {/* Backdrop Mobile */}
+      {/* Backdrop mobile */}
       <div
-        className={`fixed inset-0 z-30 bg-black/50 transition-opacity md:hidden ${
+        className={`fixed inset-0 z-30 bg-black/50 md:hidden ${
           mobileOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setMobileOpen(false)}
@@ -65,288 +77,57 @@ export default function Navbar({
         onMouseLeave={() => window.innerWidth >= 768 && setExpanded(false)}
         className={`
           fixed top-0 left-0 h-screen bg-white shadow-xl z-40
-          transition-all duration-300 flex flex-col overflow-hidden
+          transition-all duration-300 flex flex-col
           ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0
           ${expanded ? "md:w-60 xl:w-64" : "md:w-20"}
         `}
       >
-        {/* LOGO AREA */}
-        <div className="flex items-center justify-center h-20 relative shrink-0">
+        {/* LOGO */}
+        <div className="flex items-center justify-center h-20">
           <img
             src="src/assets/6.svg"
             alt="Logo"
-            className={`
-              h-18 w-auto transition-all duration-300
-              md:h-18
-              ${expanded ? "md:opacity-100 md:scale-100" : "md:opacity-0 md:scale-90"}
-              block
-            `}
-          />
-          <img
-            src="src/assets/icon-diaghelper.svg"
-            alt="Icon"
-            className={`
-              absolute h-10 w-auto transition-all duration-300
-              hidden ${!expanded ? "md:block md:opacity-100 md:scale-110" : "md:opacity-0 md:scale-90"}
-            `}
+            className={`transition-all ${
+              expanded ? "opacity-100" : "opacity-0"
+            }`}
           />
         </div>
 
-        <div className="flex flex-col h-full px-3 pb-4 pt-4 overflow-y-auto no-scrollbar">
-          {/* MENU ITEMS */}
-          <nav className="flex flex-col items-center w-full space-y-2">
-            {menuItems.map((item, i) => (
-              <Link
-                key={i}
-                to={item.to}
-                onClick={() => setMobileOpen(false)}
-                className={`
-                  flex items-center rounded-lg transition-all duration-300 group
-                  bg-linear-to-r from-slate-100 to-slate-200 
-                  hover:from-primary-200 hover:to-primary-400
-                  h-12 w-full
-                  ${expanded || mobileOpen ? "px-3 justify-start gap-3" : "px-0 justify-center"}
-                `}
-              >
-                <div className="flex items-center justify-center w-10 h-10 shrink-0">
-                  <item.icon size={24} className="transition-transform group-hover:scale-110" />
-                </div>
+        {/* MENU */}
+        <nav className="flex flex-col px-3 gap-2">
+          {menuItems.map((item, i) => (
+            <Link
+              key={i}
+              to={item.to}
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center gap-3 h-12 px-3 rounded-lg
+              bg-slate-100 hover:bg-primary-200 transition"
+            >
+              <item.icon size={22} />
+              {expanded && <span>{item.label}</span>}
+            </Link>
+          ))}
+        </nav>
 
-                <span
-                  className={`
-                    text-sm font-medium text-slate-700 transition-all duration-300 whitespace-nowrap
-                    ${expanded || mobileOpen ? "opacity-100 w-auto translate-x-0" : "opacity-0 w-0 overflow-hidden -translate-x-2 pointer-events-none"}
-                  `}
-                >
-                  {item.label}
-                </span>
-              </Link>
-            ))}
-          </nav>
-
-          {/* FOOTER NO NAVBAR */}
-          <div className="mt-auto border-t border-gray-100 pt-4 flex flex-col gap-4">
-            {/* Usuário */}
-            <div className={`flex items-center h-12 w-full ${expanded ? "px-3 gap-3" : "justify-center"}`}>
-              <img
-                src={avatarFinal}
-                className="w-10 h-10 rounded-full ring-2 ring-slate-900 object-cover"
-                alt={`Avatar de ${usuario?.nome}`}
-              />
-              {expanded && (
-                <div className="flex flex-col min-w-0">
-                  <p className="text-sm font-bold truncate leading-tight">
-                    {usuario?.nome}
-                  </p>
-                  <p className="text-[11px] text-slate-500 truncate">
-                    {usuario?.email}
-                  </p>
-                </div>
-              )}
-            </div>
-
-            {/* Logout */}
-            <div className={`flex items-center h-12 w-full ${expanded ? "px-3 gap-3" : "justify-center"}`}>
-              <Logout expanded={expanded} />
-            </div>
+        {/* FOOTER */}
+        <div className="mt-auto border-t p-3 flex flex-col gap-3">
+          <div className="flex items-center gap-3">
+            <img
+              src={avatarFinal}
+              className="w-10 h-10 rounded-full ring-2 ring-slate-900"
+            />
+            {expanded && (
+              <div>
+                <p className="font-bold text-sm">{usuario.nome}</p>
+                <p className="text-xs text-slate-500">{usuario.email}</p>
+              </div>
+            )}
           </div>
+
+          <Logout expanded={expanded} />
         </div>
       </aside>
     </>
   );
 }
-
-
-
-// import { useState } from "react";
-// import { Link } from "react-router-dom";
-// import {
-//   FcHome,
-//   FcPlus,
-//   FcBusinessman,
-//   FcClock,
-//   FcSettings,
-//   FcMenu,
-//   FcPortraitMode,
-// } from "react-icons/fc";
-// import Logout from "./Logout";
-
-// const menuItems = [
-//   { to: "/dashboard", icon: FcHome, label: "Dashboard" },
-//   { to: "/GerarLaudo", icon: FcPlus, label: "Gerar laudo" },
-//   { to: "/CadastroUsuario", icon: FcBusinessman, label: "Usuário" },
-//   { to: "/CadastroPacientes", icon: FcPortraitMode, label: "Paciente" },
-//   { to: "/LogsAuditoria", icon: FcClock, label: "Logs de Auditoria" },
-//   { to: "/configuracoes", icon: FcSettings, label: "Configurações" },
-// ];
-
-// export default function Navbar({
-//   expanded,
-//   setExpanded,
-//   mobileOpen,
-//   setMobileOpen,
-// }) {
-//   const usuario = JSON.parse(localStorage.getItem("usuario")) || {
-//     nome: "Usuário",
-//     email: "admin@app.com",
-//   };
-
-//   const avatarPorTipo = {
-//   recepcionista:
-//     "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=256&q=80",
-//   administrador:
-//     "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?w=256&q=80",
-//   medico:
-//     "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=256&q=80",
-// };
-
-// const avatarFinal =
-//   usuario?.avatarUrl ||
-//   avatarPorTipo[usuario?.role] ||
-//   "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=facearea&facepad=2.25&w=256&q=80";
-
-//   return (
-//     <>
-//       {/* Backdrop Mobile */}
-//       <div
-//         className={`fixed inset-0 z-30 bg-black/50 transition-opacity md:hidden ${
-//           mobileOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-//         }`}
-//         onClick={() => setMobileOpen(false)}
-//       />
-
-//       <aside
-//         onMouseEnter={() => window.innerWidth >= 768 && setExpanded(true)}
-//         onMouseLeave={() => window.innerWidth >= 768 && setExpanded(false)}
-//         className={`
-//           fixed top-0 left-0 h-screen bg-white shadow-xl z-40
-//           transition-all duration-300 flex flex-col overflow-hidden
-//           ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
-//           md:translate-x-0
-//           ${expanded ? "md:w-60 xl:w-64" : "md:w-20"}
-//         `}
-//       >
-//         {/* LOGO AREA - Ajustada para escala menor */}
-//         {/* AREA DO LOGO - Corrigida para Mobile vs Desktop */}
-//        <div className="flex items-center justify-center h-20 relative shrink-0">
-//   {/* LOGO EXPANDIDA */}
-//   <img
-//     src="src/assets/6.svg"
-//     alt="Logo"
-//     className={`
-//       /* Mobile: h-12 (48px) ou h-14 (56px) para ficar bem visível */
-//       h-18 w-auto transition-all duration-300
-      
-//       /* Desktop (md): volta para h-8 (32px) para manter a elegância */
-//       md:h-18 
-      
-//       /* Controle de visibilidade Desktop */
-//       ${expanded ? "md:opacity-100 md:scale-100" : "md:opacity-0 md:scale-90"}
-//       block 
-//     `}
-//   />
-
-//   {/* LOGO ÍCONE (Apenas para Desktop recolhido) */}
-//   <img
-//     src="src/assets/icon-diaghelper.svg"
-//     alt="Icon"
-//     className={`
-//       absolute h-10 w-auto transition-all duration-300
-//       hidden 
-//       ${
-//         !expanded
-//           ? "md:block md:opacity-100 md:scale-110"
-//           : "md:opacity-0 md:scale-90"
-//       }
-//     `}
-//   />
-// </div>
-//         <div className="flex flex-col h-full px-3 pb-4 pt-4 overflow-y-auto no-scrollbar">
-//           {/* MENU ITEMS */}
-//           <nav className="flex flex-col items-center w-full space-y-2">
-//             {menuItems.map((item, i) => (
-//               <Link
-//                 key={i}
-//                 to={item.to}
-//                 onClick={() => setMobileOpen(false)}
-//                 className={`
-//                             flex items-center rounded-lg transition-all duration-300 group
-//                             bg-linear-to-r from-slate-100 to-slate-200 
-//                             hover:from-primary-200 hover:to-primary-400
-                            
-//                             h-12 w-full
-                            
-//                             /* Se for mobile (mobileOpen) OU desktop expandido: alinha à esquerda */
-//                             /* Caso contrário (desktop recolhido): centraliza */
-//                             ${
-//                             expanded || mobileOpen
-//                               ? "px-3 justify-start gap-3"
-//                               : "px-0 justify-center"
-//                             }
-//                          `}
-//               >
-//                 <div className="flex items-center justify-center w-10 h-10 shrink-0">
-//                   <item.icon
-//                     size={24}
-//                     className="transition-transform group-hover:scale-110"
-//                   />
-//                 </div>
-
-//                 <span
-//                   className={`
-//         text-sm font-medium text-slate-700 transition-all duration-300 whitespace-nowrap
-//         /* Se for mobile OU desktop expandido: mostra o texto */
-//         ${
-//           expanded || mobileOpen
-//             ? "opacity-100 w-auto translate-x-0"
-//             : "opacity-0 w-0 overflow-hidden -translate-x-2 pointer-events-none"
-//         }
-//       `}
-//                 >
-//                   {item.label}
-//                 </span>
-//               </Link>
-//             ))}
-//           </nav>
-
-//           {/* FOOTER NO NAVBAR */}
-//           <div className="mt-auto border-t border-gray-100 pt-4 flex flex-col gap-4">
-//             {/* Usuário */}
-//             <div
-//               className={`flex items-center h-12 w-full ${
-//                 expanded ? "px-3 gap-3" : "justify-center"
-//               }`}
-//             >
-//               <img
-//                 src={avatarFinal}
-//                 className="w-10 h-10 rounded-full ring-2 ring-slate-900 object-cover"
-//                 alt={`Avatar de ${usuario?.nome}`}
-//               />
-
-//               {expanded && (
-//                 <div className="flex flex-col min-w-0">
-//                   <p className="text-sm font-bold truncate leading-tight">
-//                     {usuario?.nome}
-//                   </p>
-//                   <p className="text-[11px] text-slate-500 truncate">
-//                     {usuario?.email}
-//                   </p>
-//                 </div>
-//               )}
-//             </div>
-
-//             {/* Logout - Alinhado pelo mesmo container w-10 */}
-//             <div
-//               className={`flex items-center h-12 w-full ${
-//                 expanded ? "px-3 gap-3" : "justify-center"
-//               }`}
-//             >
-//               <Logout expanded={expanded} />
-//             </div>
-//           </div>
-//         </div>
-//       </aside>
-//     </>
-//   );
-// }
