@@ -69,7 +69,7 @@
     {
       "id": "6c5c",
       "nome": "Paulo Santiago",
-      "cpf": "123.123.123-11",
+      "cpf": "123.456.789-10",
       "email": "paulo@medico.com",
       "cargo": "Médico Generalista",
       "perfil": "medico",
@@ -78,15 +78,26 @@
       "criadoEm": "18/01/2026 02:37"
     },
     {
-      "id": "f25b",
+      "id": "7f3c",
       "nome": "aaaaaaaaa",
-      "cpf": "123.4",
-      "email": "a@a",
-      "cargo": "Recepcionista",
-      "perfil": "recepcao",
+      "cpf": "123.456.789-11",
+      "email": "aaaaaa@email.com",
+      "cargo": "Médico Generalista",
+      "perfil": "medico",
       "status": "Ativo",
       "senha": "123",
-      "criadoEm": "18/01/2026 04:05"
+      "criadoEm": "18/01/2026 12:38"
+    },
+    {
+      "id": "35bb",
+      "nome": "Fulano de etc",
+      "cpf": "123.456.789-11",
+      "email": "ashnsjha@email.com",
+      "cargo": "Médico Generalista",
+      "perfil": "medico",
+      "status": "Ativo",
+      "senha": "123",
+      "criadoEm": "18/01/2026 13:12"
     }
   ],
   "LogsAuditoria": [
@@ -925,6 +936,114 @@
       "tipo": "CADASTRO",
       "detalhes": null,
       "data": "2026-01-18T07:05:20.239Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "e82d",
+      "usuario": "Admin Sistema",
+      "acao": "Excluiu usuário: aaaaaaaaa",
+      "tipo": "EXCLUSÃO",
+      "detalhes": null,
+      "data": "2026-01-18T07:14:41.577Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "c20e",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou DELETE (ID: f25b)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-18T07:14:41.577Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "7983",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Paulo Santiago",
+      "tipo": "EDIÇÃO",
+      "detalhes": "CPF: \"123.123.123-11\" → \"123.456.7\"",
+      "data": "2026-01-18T15:14:39.171Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "453e",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Paulo Santiago",
+      "tipo": "EDIÇÃO",
+      "detalhes": "Nenhuma alteração detectada",
+      "data": "2026-01-18T15:19:48.372Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "d5a4",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Paulo Santiago",
+      "tipo": "EDIÇÃO",
+      "detalhes": "CPF: \"123.456.7\" → \"123.456.789-10\"",
+      "data": "2026-01-18T15:31:09.320Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "3df0",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Paulo Santiago",
+      "tipo": "EDIÇÃO",
+      "detalhes": "EMAIL: \"paulo@medico.com\" → \"pauLo@medico.com\"",
+      "data": "2026-01-18T15:31:31.878Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "1fd3",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou POST (Paciente: aaaaaaaaa)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-18T15:38:31.138Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "8c5c",
+      "usuario": "Admin Sistema",
+      "acao": "Cadastrou novo usuário: aaaaaaaaa",
+      "tipo": "CADASTRO",
+      "detalhes": null,
+      "data": "2026-01-18T15:38:31.140Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "bbd2",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: aaaaaaaaa",
+      "tipo": "EDIÇÃO",
+      "detalhes": "CPF: \"123.456.789-10\" → \"123.456.789-11\"",
+      "data": "2026-01-18T15:40:24.998Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "413b",
+      "usuario": "Admin Sistema",
+      "acao": "Cadastrou novo usuário: Fulano de tal",
+      "tipo": "CADASTRO",
+      "detalhes": null,
+      "data": "2026-01-18T16:12:28.139Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "e0eb",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou POST (Paciente: Fulano de tal)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-18T16:12:28.138Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "04be",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Fulano de etc",
+      "tipo": "EDIÇÃO",
+      "detalhes": "NOME: \"Fulano de tal\" → \"Fulano de etc\" | CPF: \"123.456.789-10\" → \"123.456.789-11\"",
+      "data": "2026-01-18T16:14:10.231Z",
       "ip": "127.0.0.1"
     }
   ],
