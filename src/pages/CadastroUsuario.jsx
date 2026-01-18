@@ -3,7 +3,7 @@ import { MdSaveAlt, MdCancel, MdPersonAdd, MdDeleteOutline, MdEdit, MdEmail } fr
 import PageWrapper from "../components/PageWrapper";
 import BarraPesquisa from "../components/BarraPesquisa";
 import BotaoCadastrar from "../components/BotaoCadastrar";
-import InputCPF from "../components/InputCPF"; 
+import InputCPF from "../components/InputCPF";
 import api from "../services/api";
 import { registrarLog } from "../services/auditService";
 
@@ -61,60 +61,77 @@ export default function CadastroUsuario() {
 
   const cadastrar = async (e) => {
     e.preventDefault();
-    setErroCadastro("");
+    setErroCadastro(""); // Limpa erros anteriores
 
-    if (form.email !== form.confirmarEmail) return setErroCadastro("Os e-mails não coincidem.");
-    if (!editId && (senha !== confirmaSenha)) return setErroCadastro("As senhas não coincidem.");
+    // 1. Validação de E-mail (Case Insensitive)
+    if (form.email.toLowerCase() !== form.confirmarEmail.toLowerCase()) {
+      setErroCadastro("Os e-mails não coincidem.");
+      return; // Para a execução aqui
+    }
 
+    // 2. Validação de Senha (Apenas se for novo usuário ou se o campo de senha foi preenchido na edição)
+    const senhaPreenchida = senha.length > 0;
+
+    if (!editId || senhaPreenchida) {
+      if (senha !== confirmaSenha) {
+        setErroCadastro("As senhas não coincidem.");
+        return; // Para a execução aqui
+      }
+    }
+
+    // Se chegou aqui, passou nas validações. Agora inicia o processo de salvamento.
     try {
       const { confirmarEmail, ...dadosParaSalvar } = form;
       dadosParaSalvar.email = dadosParaSalvar.email.toLowerCase();
 
       if (editId) {
-        // --- LÓGICA DE COMPARAÇÃO "DE -> PARA" ---
+        // --- LÓGICA DE EDIÇÃO ---
         const alteracoes = [];
         const camposParaComparar = ['nome', 'cpf', 'email', 'cargo', 'perfil', 'status'];
 
         camposParaComparar.forEach(campo => {
-          const valorAntigo = String(usuarioOriginal[campo] || "Vazio").trim();
-          const valorNovo = String(form[campo] || "Vazio").trim();
-
+          const valorAntigo = String(usuarioOriginal[campo] || "").trim();
+          const valorNovo = String(form[campo] || "").trim();
           if (valorAntigo !== valorNovo) {
             alteracoes.push(`${campo.toUpperCase()}: "${valorAntigo}" → "${valorNovo}"`);
           }
         });
 
-        const res = await api.put(`/usuarios/${editId}`, { 
-          ...dadosParaSalvar, 
-          senha: senha || usuarioOriginal.senha 
-        });
-        
-        // Registro do Log com os Detalhes das mudanças
+        // Só envia a nova senha se ela foi digitada, caso contrário mantém a original
+        const payload = {
+          ...dadosParaSalvar,
+          senha: senhaPreenchida ? senha : usuarioOriginal.senha
+        };
+
+        const res = await api.put(`/usuarios/${editId}`, payload);
+
         const responsavel = localStorage.getItem('usuarioNome') || 'Admin';
         const detalhesTexto = alteracoes.length > 0 ? alteracoes.join(" | ") : "Nenhuma alteração detectada";
-        
         await registrarLog(responsavel, `Editou usuário: ${form.nome}`, "EDIÇÃO", detalhesTexto);
-        
+
         setUsuarios((prev) => prev.map((u) => (u.id === editId ? res.data : u)));
+        alert("Alterações salvas com sucesso!"); // Feedback positivo
       } else {
-        // Lógica de Cadastro Novo
+        // --- LÓGICA DE CADASTRO NOVO ---
         const agora = new Date();
         const criadoEm = `${agora.toLocaleDateString("pt-BR")} ${agora.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}`;
-        
-        const res = await api.post("/usuarios", { 
-          ...dadosParaSalvar, 
-          senha, 
-          criadoEm 
+
+        const res = await api.post("/usuarios", {
+          ...dadosParaSalvar,
+          senha,
+          criadoEm
         });
+
         setUsuarios((prev) => [...prev, res.data]);
-        
         const responsavel = localStorage.getItem('usuarioNome') || 'Admin';
         await registrarLog(responsavel, `Cadastrou novo usuário: ${form.nome}`, "CADASTRO");
+        alert("Usuário cadastrado com sucesso!");
       }
+
       resetForm();
       setFormAtivo(false);
     } catch (err) {
-      setErroCadastro("Erro ao processar solicitação.");
+      setErroCadastro("Erro ao processar solicitação no servidor.");
     }
   };
 
@@ -132,7 +149,7 @@ export default function CadastroUsuario() {
       try {
         await api.delete(`/usuarios/${id}`);
         setUsuarios((prev) => prev.filter((u) => u.id !== id));
-        
+
         const responsavel = localStorage.getItem('usuarioNome') || 'Admin';
         await registrarLog(responsavel, `Excluiu usuário: ${usuarioRemovido?.nome}`, "EXCLUSÃO");
       } catch (err) {
@@ -144,7 +161,7 @@ export default function CadastroUsuario() {
   return (
     <PageWrapper title="Gestão de Usuários">
       <div className="max-w-7xl mx-auto space-y-6 pb-10">
-        
+
         <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
           <div className="w-full md:max-w-md flex items-center gap-3">
             <BarraPesquisa pesquisa={pesquisa} setPesquisa={setPesquisa} placeholder="Nome, CPF, cargo, e-mail..." />
@@ -161,9 +178,26 @@ export default function CadastroUsuario() {
             </div>
 
             <form onSubmit={cadastrar} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <InputCPF label="CPF" name="cpf" value={form.cpf} onChange={handleChange} required />
-              <Input label="Nome Completo" name="nome" value={form.nome} onChange={handleChange} required />
-              
+
+              {/* CPF */}
+              <InputCPF
+                label="CPF"
+                name="cpf"
+                value={form.cpf}
+                onChange={handleChange}
+                required
+              />
+
+              {/* Nome Completo */}
+              <Input
+                label="Nome Completo"
+                name="nome"
+                value={form.nome}
+                onChange={handleChange}
+                required
+              />
+
+              {/* Status */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-bold text-slate-500 uppercase ml-1">Status</label>
                 <select name="status" className="border border-slate-200 p-3 rounded-xl bg-slate-50 focus:bg-white outline-none transition-all" value={form.status} onChange={handleChange}>
@@ -172,9 +206,35 @@ export default function CadastroUsuario() {
                 </select>
               </div>
 
-              <Input label="E-mail" name="email" type="email" value={form.email} onChange={handleChange} required />
-              <Input label="Confirmar E-mail" name="confirmarEmail" type="email" value={form.confirmarEmail} onChange={handleChange} required />
-              
+              {/* E-mail */}
+              <Input
+                label="E-mail"
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+
+              {/* Confirmar E-mail com validação visual */}
+              <div className="relative">
+                <Input
+                  label="Confirmar E-mail"
+                  name="confirmarEmail"
+                  type="email"
+                  value={form.confirmarEmail}
+                  onChange={handleChange}
+                  required
+                  hasError={form.confirmarEmail !== "" && form.email.toLowerCase() !== form.confirmarEmail.toLowerCase()}
+                />
+                {form.confirmarEmail !== "" && form.email.toLowerCase() !== form.confirmarEmail.toLowerCase() && (
+                  <span className="text-[10px] text-red-500 font-bold absolute -bottom-4 left-1 animate-pulse">
+                    Os e-mails não coincidem
+                  </span>
+                )}
+              </div>
+
+              {/* Perfil */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-bold text-slate-500 uppercase ml-1">Perfil de Acesso</label>
                 <select name="perfil" className="border border-slate-200 p-3 rounded-xl bg-slate-50 focus:bg-white outline-none transition-all" value={form.perfil} onChange={handleChange} required>
@@ -185,6 +245,7 @@ export default function CadastroUsuario() {
                 </select>
               </div>
 
+              {/* Cargo */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-bold text-slate-500 uppercase ml-1">Cargo</label>
                 <select name="cargo" className="border border-slate-200 p-3 rounded-xl bg-slate-50 focus:bg-white outline-none transition-all" value={form.cargo} onChange={handleChange} required>
@@ -197,8 +258,31 @@ export default function CadastroUsuario() {
                 </select>
               </div>
 
-              <Input label={editId ? "Nova Senha (opcional)" : "Senha"} type="password" value={senha} onChange={(e) => setSenha(e.target.value)} required={!editId} />
-              <Input label="Confirme a Senha" type="password" value={confirmaSenha} onChange={(e) => setConfirmaSenha(e.target.value)} required={!editId} />
+              {/* Senha */}
+              <Input
+                label={editId ? "Nova Senha (opcional)" : "Senha"}
+                type="password"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                required={!editId}
+              />
+
+              {/* Confirmação de Senha */}
+              <div className="relative">
+                <Input
+                  label="Confirme a Senha"
+                  type="password"
+                  value={confirmaSenha}
+                  onChange={(e) => setConfirmaSenha(e.target.value)}
+                  required={!editId}
+                  hasError={confirmaSenha !== "" && senha !== confirmaSenha}
+                />
+                {confirmaSenha !== "" && senha !== confirmaSenha && (
+                  <span className="text-[10px] text-red-500 font-bold absolute -bottom-4 left-1 animate-pulse">
+                    As senhas não coincidem
+                  </span>
+                )}
+              </div>
 
               {erroCadastro && <div className="col-span-full p-3 bg-red-50 border border-red-100 text-red-600 rounded-lg text-sm font-bold text-center">{erroCadastro}</div>}
 
@@ -230,7 +314,7 @@ export default function CadastroUsuario() {
                   <tr key={u.id} className="hover:bg-blue-50/30 transition-colors group">
                     <Td>
                       <div className="font-bold text-slate-800">{u.nome}</div>
-                      <div className="text-[10px] text-slate-500 flex items-center gap-1 font-mono uppercase"><MdEmail size={12}/>{u.email}</div>
+                      <div className="text-[10px] text-slate-500 flex items-center gap-1 font-mono uppercase"><MdEmail size={12} />{u.email}</div>
                     </Td>
                     <Td className="hidden lg:table-cell">
                       <div className="text-slate-700 text-sm font-medium">{u.cargo}</div>
@@ -259,15 +343,18 @@ export default function CadastroUsuario() {
 }
 
 // Subcomponentes auxiliares mantidos
-function Input({ label, type = "text", name, ...props }) {
+function Input({ label, type = "text", name, hasError, ...props }) {
   return (
     <div className="flex flex-col w-full gap-1.5">
       <label className="text-xs font-bold text-slate-500 uppercase ml-1">{label}</label>
-      <input 
-        type={type} 
+      <input
+        type={type}
         name={name}
-        className="border border-slate-200 p-3 rounded-xl w-full bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all placeholder:text-slate-300" 
-        {...props} 
+        className={`border p-3 rounded-xl w-full outline-none transition-all placeholder:text-slate-300 ${hasError
+          ? "border-red-500 bg-red-50 focus:ring-2 focus:ring-red-200"
+          : "border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+          }`}
+        {...props}
       />
     </div>
   );

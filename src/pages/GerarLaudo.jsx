@@ -186,15 +186,21 @@ export default function GerarLaudo() {
                 />
               </div>
 
-              <div className="flex flex-col gap-1">
-                <label className="text-xs font-bold text-slate-500 uppercase ml-1">Data do Exame</label>
-                <input
-                  type="date"
-                  value={dataLaudo}
-                  onChange={(e) => setDataLaudo(e.target.value)}
-                  className="border border-slate-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
-                />
-              </div>
+              {/* DATA DO EXAME (CAMPO OBRIGATÓRIO) */}
+      <div className="flex flex-col gap-1">
+        <label className="text-xs font-bold text-slate-500 uppercase ml-1 flex justify-between">
+          Data do Exame
+          {!dataLaudo && <span className="text-red-500 animate-pulse">* Obrigatório</span>}
+        </label>
+        <input
+          type="date"
+          value={dataLaudo}
+          onChange={(e) => setDataLaudo(e.target.value)}
+          className={`border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all ${
+            !dataLaudo ? 'border-red-300 bg-red-50/50' : 'border-slate-300'
+          }`}
+        />
+      </div>
             </div>
 
             <div className="space-y-3">

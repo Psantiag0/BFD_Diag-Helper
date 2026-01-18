@@ -47,13 +47,35 @@
     {
       "id": "7f9b",
       "nome": "Ficticio da Silva e Silva",
-      "cpf": "555.555.555-55",
+      "cpf": "555.555.555-56",
       "email": "ficticio@medico.com",
       "cargo": "Médico Assistente",
       "perfil": "medico",
       "status": "Ativo",
       "senha": "123",
       "criadoEm": "02/01/2026 11:52"
+    },
+    {
+      "id": "3b98",
+      "nome": "Médico da Silva",
+      "cpf": "123.456.789-99",
+      "email": "medico@medico.com",
+      "cargo": "Médico Generalista",
+      "perfil": "medico",
+      "status": "Ativo",
+      "senha": "123",
+      "criadoEm": "18/01/2026 01:24"
+    },
+    {
+      "id": "6c5c",
+      "nome": "Paulo Santiago",
+      "cpf": "123.123.123-11",
+      "email": "paulo@medico.com",
+      "cargo": "Médico Generalista",
+      "perfil": "medico",
+      "status": "Ativo",
+      "senha": "123",
+      "criadoEm": "18/01/2026 02:37"
     }
   ],
   "LogsAuditoria": [
@@ -596,6 +618,195 @@
       "detalhes": null,
       "data": "2026-01-09T02:04:22.374Z",
       "ip": "127.0.0.1"
+    },
+    {
+      "id": "1fe2",
+      "usuario": "Admin Sistema",
+      "acao": "ERRO: POST em /LogsAuditoria",
+      "tipo": "ERRO",
+      "detalhes": null,
+      "data": "2026-01-18T01:20:46.092Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "7212",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou login no sistema",
+      "tipo": "LOGIN",
+      "detalhes": null,
+      "data": "2026-01-18T01:20:54.617Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "e1e6",
+      "usuario": "Admin Sistema",
+      "acao": "Editou dados do paciente: Paciencio da Silva e Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "CPF: \"666.666.666-66\" → \"666.666.666-67\"",
+      "data": "2026-01-18T01:21:20.482Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "b902",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Ficticio da Silva e Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "CPF: \"555.555.555-55\" → \"555.555.555-56\"",
+      "data": "2026-01-18T01:21:52.619Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "40d1",
+      "usuario": "Admin Sistema",
+      "acao": "Editou dados do paciente: Joao silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "CPF: \"123.456.789-98\" → \"123.456.789-99\"",
+      "data": "2026-01-18T01:22:05.501Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "0c9d",
+      "usuario": "Admin Sistema",
+      "acao": "Gerou laudo médico para o paciente: Carlos Henrique Lima",
+      "tipo": "LAUDO",
+      "detalhes": null,
+      "data": "2026-01-18T01:32:35.549Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "ba52",
+      "usuario": "Admin Sistema",
+      "acao": "Gerou laudo médico para o paciente: Paciencio da Silva e Silva",
+      "tipo": "LAUDO",
+      "detalhes": null,
+      "data": "2026-01-18T01:47:24.334Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "1c4b",
+      "usuario": "Admin Sistema",
+      "acao": "Gerou laudo médico para o paciente: Carlos Henrique Lima",
+      "tipo": "LAUDO",
+      "detalhes": null,
+      "data": "2026-01-18T03:16:53.451Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "b8aa",
+      "usuario": "Admin Sistema",
+      "acao": "Gerou laudo médico para o paciente: Levisgton Eustáquio",
+      "tipo": "LAUDO",
+      "detalhes": null,
+      "data": "2026-01-18T04:11:05.398Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "4d98",
+      "usuario": "Admin Sistema",
+      "acao": "Cadastrou novo usuário: Médico da Silva",
+      "tipo": "CADASTRO",
+      "detalhes": null,
+      "data": "2026-01-18T04:24:52.773Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "c6b8",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou POST (Paciente: Médico da Silva)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-18T04:24:52.772Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "1b63",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Médico da Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "Nenhuma alteração detectada",
+      "data": "2026-01-18T04:25:48.789Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "99e6",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Médico da Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "Nenhuma alteração detectada",
+      "data": "2026-01-18T04:34:04.685Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "72b0",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Médico da Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "Nenhuma alteração detectada",
+      "data": "2026-01-18T04:39:42.991Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "139d",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Médico da Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "EMAIL: \"medico@medico.com\" → \"medico@mEdico.com\"",
+      "data": "2026-01-18T04:39:52.120Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "e042",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Médico da Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "EMAIL: \"medico@medico.com\" → \"mEdico@meDico.com\"",
+      "data": "2026-01-18T04:46:05.962Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "8ab9",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Médico da Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "Nenhuma alteração detectada",
+      "data": "2026-01-18T04:55:52.593Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "aad8",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Médico da Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "Nenhuma alteração detectada",
+      "data": "2026-01-18T05:19:45.781Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "8952",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Médico da Silva",
+      "tipo": "EDIÇÃO",
+      "detalhes": "Nenhuma alteração detectada",
+      "data": "2026-01-18T05:30:20.795Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "81dd",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou POST (Paciente: Paulo Santiago)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-18T05:37:00.147Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "de8f",
+      "usuario": "Admin Sistema",
+      "acao": "Cadastrou novo usuário: Paulo Santiago",
+      "tipo": "CADASTRO",
+      "detalhes": null,
+      "data": "2026-01-18T05:37:00.148Z",
+      "ip": "127.0.0.1"
     }
   ],
   "pacientes": [
@@ -620,7 +831,7 @@
       "nome": "Joao silva",
       "dataNascimento": "1980-12-12",
       "telefone": "81991254521",
-      "cpf": "123.456.789-98",
+      "cpf": "123.456.789-99",
       "idade": "35",
       "exames": []
     },
@@ -677,7 +888,7 @@
     },
     {
       "id": "66dd",
-      "cpf": "666.666.666-66",
+      "cpf": "666.666.666-67",
       "nome": "Paciencio da Silva e Silva",
       "dataNascimento": "2025-05-05",
       "telefone": "(99) 9 9999-9999"
