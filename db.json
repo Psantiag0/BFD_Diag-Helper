@@ -76,6 +76,17 @@
       "status": "Ativo",
       "senha": "123",
       "criadoEm": "18/01/2026 02:37"
+    },
+    {
+      "id": "f25b",
+      "nome": "aaaaaaaaa",
+      "cpf": "123.4",
+      "email": "a@a",
+      "cargo": "Recepcionista",
+      "perfil": "recepcao",
+      "status": "Ativo",
+      "senha": "123",
+      "criadoEm": "18/01/2026 04:05"
     }
   ],
   "LogsAuditoria": [
@@ -806,6 +817,114 @@
       "tipo": "CADASTRO",
       "detalhes": null,
       "data": "2026-01-18T05:37:00.148Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "d97d",
+      "usuario": "Admin Sistema",
+      "acao": "Gerou laudo médico para o paciente: Joao silva",
+      "tipo": "LAUDO",
+      "detalhes": null,
+      "data": "2026-01-18T05:53:51.565Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "555b",
+      "usuario": "Admin Sistema",
+      "acao": "Editou usuário: Paulo Santiago",
+      "tipo": "EDIÇÃO",
+      "detalhes": "Nenhuma alteração detectada",
+      "data": "2026-01-18T06:24:22.949Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "60ec",
+      "usuario": "Admin Sistema",
+      "acao": "Cadastrou novo usuário: Médico da Silva",
+      "tipo": "CADASTRO",
+      "detalhes": null,
+      "data": "2026-01-18T06:33:30.073Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "9bbf",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou POST (Paciente: Médico da Silva)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-18T06:33:30.073Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "4a80",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou POST (Paciente: aaaaaaaaa)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-18T07:01:01.191Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "498c",
+      "usuario": "Admin Sistema",
+      "acao": "Cadastrou novo usuário: aaaaaaaaa",
+      "tipo": "CADASTRO",
+      "detalhes": null,
+      "data": "2026-01-18T07:01:01.192Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "66db",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou DELETE (ID: 7136)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-18T07:01:20.761Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "e730",
+      "usuario": "Admin Sistema",
+      "acao": "Excluiu usuário: aaaaaaaaa",
+      "tipo": "EXCLUSÃO",
+      "detalhes": null,
+      "data": "2026-01-18T07:01:20.762Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "1421",
+      "usuario": "Admin Sistema",
+      "acao": "Excluiu usuário: Médico da Silva",
+      "tipo": "EXCLUSÃO",
+      "detalhes": null,
+      "data": "2026-01-18T07:01:29.214Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "d616",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou DELETE (ID: 5eb2)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-18T07:01:29.213Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "58ac",
+      "usuario": "Admin Sistema",
+      "acao": "Realizou POST (Paciente: aaaaaaaaa)",
+      "tipo": "INFO",
+      "detalhes": null,
+      "data": "2026-01-18T07:05:20.238Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "dcd0",
+      "usuario": "Admin Sistema",
+      "acao": "Cadastrou novo usuário: aaaaaaaaa",
+      "tipo": "CADASTRO",
+      "detalhes": null,
+      "data": "2026-01-18T07:05:20.239Z",
       "ip": "127.0.0.1"
     }
   ],

@@ -286,10 +286,22 @@ export default function CadastroUsuario() {
 
               {erroCadastro && <div className="col-span-full p-3 bg-red-50 border border-red-100 text-red-600 rounded-lg text-sm font-bold text-center">{erroCadastro}</div>}
 
+              {/* Botões Salvar Alterações / Confirmar Cadastro */}
               <div className="col-span-full flex gap-3 pt-6 border-t border-slate-100 mt-2">
-                <button type="submit" className="bg-blue-600 text-white rounded-xl flex items-center px-8 py-3 hover:bg-blue-700 transition-all shadow-md font-bold gap-2">
+                <button
+                  type="submit"
+                  disabled={form.email.toLowerCase() !== form.confirmarEmail.toLowerCase() || (senha !== confirmaSenha && (senha !== "" || !editId))}
+                  className={`rounded-xl flex items-center px-8 py-3 transition-all shadow-md font-bold gap-2 ${
+                    // Estilo condicional se estiver desabilitado
+                    (form.email.toLowerCase() !== form.confirmarEmail.toLowerCase() || (senha !== confirmaSenha && (senha !== "" || !editId)))
+                      ? "bg-slate-300 cursor-not-allowed text-slate-500"
+                      : "bg-blue-600 text-white hover:bg-blue-700"
+                    }`}
+                >
                   <MdSaveAlt size={20} /> {editId ? "Salvar Alterações" : "Confirmar Cadastro"}
                 </button>
+
+                {/* Botão Cancelar */}
                 <button type="button" onClick={() => { resetForm(); setFormAtivo(false); }} className="bg-slate-100 text-slate-600 px-8 py-3 rounded-xl hover:bg-slate-200 transition-all font-bold flex items-center gap-2">
                   <MdCancel size={20} /> Cancelar
                 </button>
@@ -341,6 +353,23 @@ export default function CadastroUsuario() {
     </PageWrapper>
   );
 }
+
+// Verifica se houve qualquer alteração nos campos ou na senha
+const temAlteracao = () => {
+  // Se for cadastro novo, basta verificar se os campos básicos foram preenchidos
+  if (!editId) return true;
+
+  // Se for edição, comparamos o estado atual com o original
+  const camposParaComparar = ['nome', 'cpf', 'email', 'cargo', 'perfil', 'status'];
+  const algoMudouNoForm = camposParaComparar.some(
+    (campo) => String(form[campo]).trim() !== String(usuarioOriginal[campo] || "").trim()
+  );
+
+  // Verifica se o usuário digitou algo no campo de senha
+  const senhaDigitada = senha.length > 0;
+
+  return algoMudouNoForm || senhaDigitada;
+};
 
 // Subcomponentes auxiliares mantidos
 function Input({ label, type = "text", name, hasError, ...props }) {

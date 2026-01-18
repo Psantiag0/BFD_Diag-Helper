@@ -91,8 +91,8 @@ export default function GerarLaudo() {
       // REGISTRO DE LOG
       // Registra quem fez, o que fez e o detalhe (nome do paciente)
       await registrarLog(
-        usuarioLogado, 
-        `Gerou laudo médico para o paciente: ${pacienteSelecionado.nome}`, 
+        usuarioLogado,
+        `Gerou laudo médico para o paciente: ${pacienteSelecionado.nome}`,
         "LAUDO"
       );
 
@@ -120,7 +120,7 @@ export default function GerarLaudo() {
   return (
     <PageWrapper title="Gerar Novo Laudo">
       <div className="max-w-6xl mx-auto space-y-8 pb-20">
-        
+
         {/* ETAPA 1: SELEÇÃO DE PACIENTE */}
         <section className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
           <div className="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
@@ -134,7 +134,7 @@ export default function GerarLaudo() {
               </span>
             )}
           </div>
-          
+
           <div className="p-6">
             <div className="max-w-md mb-6">
               <BarraPesquisa pesquisa={pesquisa} setPesquisa={setPesquisa} placeholder="Buscar por nome ou CPF..." />
@@ -162,6 +162,7 @@ export default function GerarLaudo() {
             </h2>
           </div>
 
+          {/* SELEÇÃO DE MÉDICO RESPONSÁVEL */}
           <div className="p-6 md:p-8 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="flex flex-col gap-1">
@@ -169,6 +170,7 @@ export default function GerarLaudo() {
                 <select
                   className="border border-slate-300 rounded-xl p-3 bg-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                   value={medicoSelecionado?.id ?? ""}
+                  required
                   onChange={(e) => setMedicoSelecionado(medicos.find(m => String(m.id) === e.target.value))}
                 >
                   <option value="">Selecione o médico</option>
@@ -176,6 +178,7 @@ export default function GerarLaudo() {
                 </select>
               </div>
 
+              {/* SELEÇÃO DE PACIENTE (BLOQUEADA) */}
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-bold text-slate-500 uppercase ml-1">Paciente</label>
                 <input
@@ -187,22 +190,22 @@ export default function GerarLaudo() {
               </div>
 
               {/* DATA DO EXAME (CAMPO OBRIGATÓRIO) */}
-      <div className="flex flex-col gap-1">
-        <label className="text-xs font-bold text-slate-500 uppercase ml-1 flex justify-between">
-          Data do Exame
-          {!dataLaudo && <span className="text-red-500 animate-pulse">* Obrigatório</span>}
-        </label>
-        <input
-          type="date"
-          value={dataLaudo}
-          onChange={(e) => setDataLaudo(e.target.value)}
-          className={`border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all ${
-            !dataLaudo ? 'border-red-300 bg-red-50/50' : 'border-slate-300'
-          }`}
-        />
-      </div>
+              <div className="flex flex-col gap-1">
+                <label className="text-xs font-bold text-slate-500 uppercase ml-1 flex justify-between">
+                  Data do Exame
+                  {!dataLaudo && <span className="text-red-500 animate-pulse">* Obrigatório</span>}
+                </label>
+                <input
+                  type="date"
+                  value={dataLaudo}
+                  onChange={(e) => setDataLaudo(e.target.value)}
+                  className={`border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all ${!dataLaudo ? 'border-red-300 bg-red-50/50' : 'border-slate-300'
+                    }`}
+                />
+              </div>
             </div>
 
+            {/* SELEÇÃO DE IMAGENS */}
             <div className="space-y-3">
               <label className="text-xs font-bold text-slate-500 uppercase ml-1">Imagens do Exame</label>
               <div className="flex items-center justify-center w-full">
@@ -215,6 +218,7 @@ export default function GerarLaudo() {
                 </label>
               </div>
 
+              {/* PRÉ-VISUALIZAÇÃO DAS IMAGENS SELECIONADAS PARA UPLOAD */}
               {previews.length > 0 && (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 pt-2">
                   {previews.map((src, i) => (
@@ -232,6 +236,7 @@ export default function GerarLaudo() {
               )}
             </div>
 
+            {/* CAMPO DE OBSERVAÇÕES */}
             <div className="flex flex-col gap-1">
               <label className="text-xs font-bold text-slate-500 uppercase ml-1">Observações Clínicas</label>
               <textarea
@@ -243,6 +248,7 @@ export default function GerarLaudo() {
               />
             </div>
 
+            {/* BOTÃO FINALIZAR */}
             <button
               onClick={handleGerarLaudo}
               className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg shadow-lg shadow-blue-200 hover:bg-blue-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
